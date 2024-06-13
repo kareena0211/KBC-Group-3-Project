@@ -3,15 +3,23 @@ import { useState } from 'react';
 function Question({ question, onNextQuestion, setPauseTimer }) {
   const [selectedOption, setSelectedOption] = useState(null);
   const [isCorrect, setIsCorrect] = useState(null);
+  const [hasClicked, setHasClicked] = useState(false);
 
   const handleOptionClick = (index) => {
-    setSelectedOption(index);
-    setIsCorrect(index === question.correct);
-    setPauseTimer(true); 
+    if (!hasClicked) {
+      setSelectedOption(index);
+      setIsCorrect(index === question.correct);
+      setPauseTimer(true);
+      setHasClicked(true);
+    }
   };
 
   const handleNext = () => {
     onNextQuestion(isCorrect);
+    setSelectedOption(null);
+    setIsCorrect(null);
+    setHasClicked(false);
+    setPauseTimer(false); 
   };
 
   return (
@@ -23,6 +31,7 @@ function Question({ question, onNextQuestion, setPauseTimer }) {
             key={index}
             onClick={() => handleOptionClick(index)}
             className={`option-button ${selectedOption === index ? (isCorrect ? 'correct' : 'incorrect') : ''}`}
+            disabled={hasClicked} 
           >
             {option}
           </button>
