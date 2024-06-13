@@ -1,0 +1,103 @@
+[
+    {
+      "question": "What is the capital of France?",
+      "options": ["Berlin", "Madrid", "Paris", "Rome"],
+      "correct": 2
+    },
+    {
+      "question": "What is the smallest planet in our solar system?",
+      "options": ["Earth", "Venus", "Mars", "Mercury"],
+      "correct": 3
+    },
+    {
+      "question": "Which element has the chemical symbol O?",
+      "options": ["Gold", "Oxygen", "Osmium", "Opal"],
+      "correct": 1
+    },
+    {
+      "question": "What is the largest ocean on Earth?",
+      "options": ["Atlantic Ocean", "Indian Ocean", "Arctic Ocean", "Pacific Ocean"],
+      "correct": 3
+    },
+    {
+      "question": "Who wrote 'Romeo and Juliet'?",
+      "options": ["Mark Twain", "William Shakespeare", "Charles Dickens", "Jane Austen"],
+      "correct": 1
+    },
+    {
+      "question": "What is the currency of Japan?",
+      "options": ["Yen", "Won", "Dollar", "Peso"],
+      "correct": 0
+    },
+    {
+      "question": "Which planet is known as the Red Planet?",
+      "options": ["Venus", "Mars", "Jupiter", "Saturn"],
+      "correct": 1
+    },
+    {
+      "question": "Who painted the Mona Lisa?",
+      "options": ["Vincent van Gogh", "Leonardo da Vinci", "Pablo Picasso", "Claude Monet"],
+      "correct": 1
+    },
+    {
+      "question": "What is the tallest mountain in the world?",
+      "options": ["K2", "Kangchenjunga", "Mount Everest", "Lhotse"],
+      "correct": 2
+    },
+    {
+      "question": "Which year did the Titanic sink?",
+      "options": ["1912", "1915", "1920", "1910"],
+      "correct": 0
+    },
+    {
+      "question": "What is the hardest natural substance on Earth?",
+      "options": ["Gold", "Iron", "Diamond", "Platinum"],
+      "correct": 2
+    },
+    {
+      "question": "Who is the author of 'Harry Potter' series?",
+      "options": ["J.K. Rowling", "J.R.R. Tolkien", "Stephen King", "George R.R. Martin"],
+      "correct": 0
+    },
+    {
+      "question": "Which planet is known as the 'Morning Star' or the 'Evening Star'?",
+      "options": ["Mars", "Jupiter", "Venus", "Saturn"],
+      "correct": 2
+    },
+    {
+      "question": "What is the chemical formula for water?",
+      "options": ["H2O", "CO2", "O2", "H2SO4"],
+      "correct": 0
+    },
+    {
+      "question": "What is the capital of Australia?",
+      "options": ["Sydney", "Melbourne", "Perth", "Canberra"],
+      "correct": 3
+    },
+    {
+      "question": "What is the largest continent by area?",
+      "options": ["Africa", "Asia", "Europe", "North America"],
+      "correct": 1
+    },
+    {
+      "question": "Who developed the theory of relativity?",
+      "options": ["Isaac Newton", "Albert Einstein", "Galileo Galilei", "Nikola Tesla"],
+      "correct": 1
+    },
+    {
+      "question": "What is the main ingredient in guacamole?",
+      "options": ["Tomato", "Onion", "Avocado", "Pepper"],
+      "correct": 2
+    },
+    {
+      "question": "What is the longest river in the world?",
+      "options": ["Amazon River", "Nile River", "Yangtze River", "Mississippi River"],
+      "correct": 1
+    },
+    {
+      "question": "Who is known as the 'Father of Computers'?",
+      "options": ["Alan Turing", "Charles Babbage", "Bill Gates", "Steve Jobs"],
+      "correct": 1
+    }
+  ]
+  

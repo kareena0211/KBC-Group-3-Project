@@ -1,12 +1,22 @@
-import React from "react";
-import LoginSignUp from "./components/LoginSignUp";
+import { useState } from 'react';
+import Quiz from './components/Quiz';
+import questionsData from './questions.json';
+import "./index.css"
 
-const App = () => {
+function App() {
+  const [start, setStart] = useState(false);
+
   return (
-    <>
-      <LoginSignUp />
-    </>
+    <div className="app-container">
+      {!start ? (
+        <button onClick={() => setStart(true)} className="start-button">
+          Start KBC Game
+        </button>
+      ) : (
+        <Quiz questions={questionsData} />
+      )}
+    </div>
   );
-};
+}
 
 export default App;
