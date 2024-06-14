@@ -1,4 +1,4 @@
-"use client"
+
 import { useState } from 'react';
 
 const Signup = () => {
@@ -130,7 +130,7 @@ const Signup = () => {
                     </div>
                     <button type="submit" className="w-full bg-blue-500 text-white py-2 rounded cursor-pointer hover:bg-blue-700">Signup</button>
                 </form>
-                
+
                 {successMessage && <div className="text-green-500 text-sm mt-4">{successMessage}</div>}
                 {errorMessage && <div className="text-red-500 text-sm mt-4">{errorMessage}</div>}
             </div>
