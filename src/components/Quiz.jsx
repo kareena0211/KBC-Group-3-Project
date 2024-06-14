@@ -1,7 +1,7 @@
-import { useState, useEffect } from 'react';
-import Question from './Question';
-import Timer from './Timer';
-import Lifelines from './Lifelines';
+import { useState, useEffect } from "react";
+import Question from "./Question";
+import Timer from "./Timer";
+import Lifelines from "./Lifelines";
 
 function Quiz({ questions }) {
   const [currentQuestion, setCurrentQuestion] = useState(0);
@@ -27,37 +27,41 @@ function Quiz({ questions }) {
 
   const handleNextQuestion = (isCorrect) => {
     if (!isCorrect) {
-      setAmount((prevAmount) => Math.max(prevAmount - 1000, 0)); 
+      setAmount((prevAmount) => Math.max(prevAmount - 1000, 0));
       setGameOver(true);
       return;
     }
 
     if (currentQuestion + 1 < questions.length) {
       setCurrentQuestion(currentQuestion + 1);
-      setAmount(amount + 1000); 
+      setAmount(amount + 1000);
       setTimer(30);
-      setPauseTimer(false); 
+      setPauseTimer(false);
     } else {
       setGameOver(true);
     }
   };
 
   return (
-    <div className="quiz-container">
-      <div className="top-section">
+    <div className="bg-white p-5 rounded-lg shadow-lg w-full max-w-xl">
+      <div className="flex justify-between mb-5">
         <Timer timer={timer} />
         <Lifelines />
       </div>
       {!gameOver ? (
-        <Question question={questions[currentQuestion]} onNextQuestion={handleNextQuestion} setPauseTimer={setPauseTimer} />
+        <Question
+          question={questions[currentQuestion]}
+          onNextQuestion={handleNextQuestion}
+          setPauseTimer={setPauseTimer}
+        />
       ) : (
-        <div className="final-amount">
+        <div className="text-center mt-5 text-2xl text-red-500">
           <h2>Game Over</h2>
           <p>Final Amount: ${amount}</p>
         </div>
       )}
-      <div className="amount-display">
-        <h2>Amount: ₹{amount}</h2>
+      <div className="mt-5 text-lg font-bold">
+        <h2>Amount: ${amount}</h2>
       </div>
     </div>
   );
