@@ -11,7 +11,7 @@
   .start-button {
     padding: 15px 30px;
     font-size: 20px;
-    font-weight: bold;
+    font-weight: bolder;
     color: white;
     background-color:#eb55bf;
     border: none;
@@ -47,6 +47,7 @@
   .lifeline-button {
     padding: 10px 15px;
     font-size: 14px;
+    font-weight: bolder;
     color: white;
     background-color: #ec729c;
     border: none;
@@ -105,5 +106,4 @@
     font-size: 24px;
     color: red;
   }
-  
-  
+    

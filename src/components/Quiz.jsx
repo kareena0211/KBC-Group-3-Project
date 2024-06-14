@@ -57,7 +57,7 @@ function Quiz({ questions }) {
         </div>
       )}
       <div className="amount-display">
-        <h2>Amount: ${amount}</h2>
+        <h2>Amount: ₹{amount}</h2>
       </div>
     </div>
   );
