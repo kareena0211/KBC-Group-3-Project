@@ -33,8 +33,6 @@ app.get("/", (req, res) => {
     res.status(200).send({
         message: "ok"
     });
-
-
 });
 
 app.listen(3000, () => {
