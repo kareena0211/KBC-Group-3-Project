@@ -5,17 +5,20 @@ import "./index.css";
 import Login from "./components/Login";
 import Signup from "./components/Signup";
 
-function App() {
+import { BrowserRouter as Router, Route, Routes } from "react-router-dom";
 
+function App() {
   const [start, setStart] = useState(false);
   const [isLogin, setIsLogin] = useState(false);
 
-    const toggleForm = () => {
-        setIsLogin(!isLogin);
-    };
+  const toggleForm = () => {
+    setIsLogin(!isLogin);
+  };
 
   return (
-    // <div className="flex flex-col items-center justify-center min-h-screen bg-gray-100">
+    <>
+      {/* 
+// <div className="flex flex-col items-center justify-center min-h-screen bg-gray-100">
     //   {!start ? (
     //     <button
     //       onClick={() => setStart(true)}
@@ -28,16 +31,15 @@ function App() {
     //   )}
     // </div>
 
-    // ----------------------------------------------------------------
+    // ---------------------------------------------------------------- */}
 
-    <div>
-            <div className="flex justify-center items-center h-16 bg-blue-400 text-white">
-                <button onClick={toggleForm} className="px-4 py-2 bg-gray-800 rounded">Switch to {isLogin ? 'Signup' : 'Login'}</button>
-            </div>
-            <div className="container mx-auto py-8">
-                {isLogin ? <Login /> : <Signup />}
-            </div>
-        </div>
+      <Router>
+        <Routes>
+          <Route path="/login" element={<Login />} />
+          <Route path="/signup" element={<Signup />} />
+        </Routes>
+      </Router>
+    </>
   );
 }
 

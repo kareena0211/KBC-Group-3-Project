@@ -3,15 +3,28 @@ import { useState } from "react";
 function Question({ question, onNextQuestion, setPauseTimer }) {
   const [selectedOption, setSelectedOption] = useState(null);
   const [isCorrect, setIsCorrect] = useState(null);
+  const [hasClicked, setHasClicked] = useState(false);
 
   const handleOptionClick = (index) => {
+
+    if (!hasClicked) {
+      setSelectedOption(index);
+      setIsCorrect(index === question.correct);
+      setPauseTimer(true);
+      setHasClicked(true);
+    }
     setSelectedOption(index);
     setIsCorrect(index === question.correct);
     setPauseTimer(true);
+
   };
 
   const handleNext = () => {
     onNextQuestion(isCorrect);
+    setSelectedOption(null);
+    setIsCorrect(null);
+    setHasClicked(false);
+    setPauseTimer(false); 
   };
 
   return (
@@ -22,6 +35,10 @@ function Question({ question, onNextQuestion, setPauseTimer }) {
           <button
             key={index}
             onClick={() => handleOptionClick(index)}
+
+            className={`option-button ${selectedOption === index ? (isCorrect ? 'correct' : 'incorrect') : ''}`}
+            disabled={hasClicked} 
+
             className={`p-2 text-lg bg-gray-300 rounded cursor-pointer ${
               selectedOption === index
                 ? isCorrect
@@ -29,6 +46,7 @@ function Question({ question, onNextQuestion, setPauseTimer }) {
                   : "bg-red-500"
                 : ""
             }`}
+
           >
             {option}
           </button>
