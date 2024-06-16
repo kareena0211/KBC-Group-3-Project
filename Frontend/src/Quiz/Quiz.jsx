@@ -1,4 +1,4 @@
-import { useState, useEffect } from "react";
+import React, { useState, useEffect } from "react";
 import Question from "../Questions/Question";
 import Timer from "../Timer/Timer";
 import Lifelines from "../LifeLine/Lifelines";
@@ -9,6 +9,7 @@ function Quiz({ questions }) {
   const [timer, setTimer] = useState(30);
   const [gameOver, setGameOver] = useState(false);
   const [pauseTimer, setPauseTimer] = useState(false);
+  const [showFinalScore, setShowFinalScore] = useState(false); // State to control showing final score
 
   useEffect(() => {
     if (timer === 0) {
@@ -27,8 +28,9 @@ function Quiz({ questions }) {
 
   const handleNextQuestion = (isCorrect) => {
     if (!isCorrect) {
-      setAmount((prevAmount) => Math.max(prevAmount - 1000, 0));
-      setGameOver(true);
+      setShowFinalScore(true); // Show final score when answer is incorrect
+      setPauseTimer(true); // Pause timer
+      setGameOver(true); // Game over
       return;
     }
 
@@ -43,26 +45,30 @@ function Quiz({ questions }) {
   };
 
   return (
-    <div className="bg-white p-5 rounded-lg shadow-lg w-full max-w-xl">
-      <div className="flex justify-between mb-5">
-        <Timer timer={timer} />
+    <div className="rounded-lg  w-11/12 h-5/6 m-0">
+      <div className="mb-3">
         <Lifelines />
       </div>
-      {!gameOver ? (
+      <Timer timer={timer} />
+      {!gameOver && !showFinalScore ? (
         <Question
           question={questions[currentQuestion]}
           onNextQuestion={handleNextQuestion}
           setPauseTimer={setPauseTimer}
         />
       ) : (
-        <div className="text-center mt-5 text-2xl text-red-500">
+        <div className="text-center mt-5 text-2xl text-white">
           <h2>Game Over</h2>
-          <p>Final Amount: ${amount}</p>
+          {showFinalScore && (
+            <p>Final Amount: ₹ {amount}</p>
+          )}
         </div>
       )}
-      <div className="mt-5 text-lg font-bold">
-        <h2>Amount: ${amount}</h2>
-      </div>
+      {(!gameOver || showFinalScore) && (
+        <span className="p-1 text-xl font-bold text-black bg-blue-400 rounded">
+          <span>Every Question Amount( Per Q./1000 ) = ( {currentQuestion + 0}*1000 ): ₹ {amount} Win</span>
+        </span>
+      )}
     </div>
   );
 }

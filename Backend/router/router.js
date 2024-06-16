@@ -20,6 +20,7 @@ router.post('/logout/Login/data', verifyToken, loginSignup.logout);
 // Question
 router.post('/Create/Questions', verifyToken, question.PutQuestion);
 router.get('/Get/All/Questions', verifyToken, question.getAllQuestions);
+router.get('/Get/Random/Questions', question.getRandomQuestions);
 router.delete('/Delete/Question/name', verifyToken, question.deleteQuestion);
 
 // Lifeline

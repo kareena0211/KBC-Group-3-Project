@@ -2,7 +2,7 @@ import { Question } from '../MongoesSchema/questionSchema.js';
 
 // PutQuestion function
 const PutQuestion = async (req, res) => {
-    const { question, options, correct } = req.body;
+    const { question, options, correct, category } = req.body;
     try {
         // Check if question already exists
         let existingQuestion = await Question.findOne({ question });
@@ -14,7 +14,8 @@ const PutQuestion = async (req, res) => {
         const newQuestion = new Question({
             question: question,
             options: options,
-            correct: correct
+            correct: correct,
+            category: category
         });
 
         const result = await newQuestion.save();
@@ -25,6 +26,7 @@ const PutQuestion = async (req, res) => {
     }
 };
 
+// find all questions
 const getAllQuestions = async (req, res) => {
     try {
         const AllQuestions = await Question.find({});
@@ -35,6 +37,24 @@ const getAllQuestions = async (req, res) => {
     }
 };
 
+// Find Random 10 questions
+const getRandomQuestions = async (req, res) => {
+    try {
+        const totalQuestions = await Question.countDocuments();
+        const selectedQuestions = await Question.aggregate([{ $sample: { size: 20 } }]);
+
+        res.json({
+            totalQuestions,
+            selectedCount: selectedQuestions.length,
+            selectedQuestions
+        });
+    } catch (error) {
+        console.error(error.message);
+        res.status(500).send('Server Error');
+    }
+};
+
+// Delete question by questio name
 const deleteQuestion = async (req, res) => {
     const { question } = req.body;
     try {
@@ -49,4 +69,4 @@ const deleteQuestion = async (req, res) => {
     }
 };
 
-export {PutQuestion, getAllQuestions, deleteQuestion}
+export {PutQuestion, getAllQuestions, getRandomQuestions, deleteQuestion}
