@@ -5,7 +5,7 @@ const NavBar = () => {
 
     return (
         <div className="nav bg-dark p-2 flex justify-between items-center">
-            <Link to="/" className="left" style={{ textDecoration: "none", color: "white" }}>
+            <Link to="/Home" className="left" style={{ textDecoration: "none", color: "white" }}>
                 <h2>Online KBC Quiz Game</h2>
             </Link>
             <div className="right flex items-center">
