@@ -1,32 +1,32 @@
 [
     {
       "question": "What is the capital of France?",
-      "options": ["Berlin", "Madrid", "Paris", "Rome"],
+      "options": ["A: Berlin", "B: Madrid", "C: Paris", "D: Rome"],
       "correct": 2
     },
     {
       "question": "What is the smallest planet in our solar system?",
-      "options": ["Earth", "Venus", "Mars", "Mercury"],
+      "options": ["A: Earth", "B: Venus", "C: Mars", "D: Mercury"],
       "correct": 3
     },
     {
       "question": "Which element has the chemical symbol O?",
-      "options": ["Gold", "Oxygen", "Osmium", "Opal"],
+      "options": ["A: Gold", "B: Oxygen", "C: Osmium", "D: Opal"],
       "correct": 1
     },
     {
       "question": "What is the largest ocean on Earth?",
-      "options": ["Atlantic Ocean", "Indian Ocean", "Arctic Ocean", "Pacific Ocean"],
+      "options": ["A: Atlantic Ocean", "B: Indian Ocean", "C: Arctic Ocean", "D: Pacific Ocean"],
       "correct": 3
     },
     {
       "question": "Who wrote 'Romeo and Juliet'?",
-      "options": ["Mark Twain", "William Shakespeare", "Charles Dickens", "Jane Austen"],
+      "options": ["A: Mark Twain", "B: William Shakespeare", "C: Charles Dickens", "D: Jane Austen"],
       "correct": 1
     },
     {
       "question": "What is the currency of Japan?",
-      "options": ["Yen", "Won", "Dollar", "Peso"],
+      "options": ["A: Yen", "B: Won", "C: Dollar", "D: Peso"],
       "correct": 0
     },
     {
