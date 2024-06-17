@@ -25,7 +25,7 @@ router.delete('/Delete/Question/name', verifyToken, question.deleteQuestion);
 
 // Lifeline
 router.post('/Create/LifeLine', verifyToken, lifelines.createLifeline);
-router.get('/GetAll/Lifelines', verifyToken, lifelines.getLifelines);
+router.get('/GetAll/Lifelines', lifelines.getLifelines);
 router.delete('/delete/Lifeline/by/name', verifyToken, lifelines.deleteLifeline);
 
 export default router;

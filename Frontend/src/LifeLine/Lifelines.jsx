@@ -1,34 +1,38 @@
+import React, { useState, useEffect } from "react";
+import axios from 'axios';
+
 function Lifelines() {
   const handleLifelineClick = (type) => {
     alert(`Lifeline ${type} used!`);
   };
 
+  const [lifelines, setLifelines] = useState([]);
+  console.log('Get All Lifelines:- ', lifelines);
+
+  useEffect(() => {
+    const fetchLifelines = async () => {
+      try {
+        const response = await axios.get('http://localhost:3000/GetAll/Lifelines');
+        setLifelines(response.data.lifelines); // Assuming the data structure is { lifelines: [...] }
+      } catch (error) {
+        console.error('Failed to fetch lifelines:', error);
+      }
+    };
+
+    fetchLifelines();
+  }, []);
+
   return (
     <div className="flex gap-2">
-      <button
-        onClick={() => handleLifelineClick("50-50")}
-        className="px-4 py-2 text-lg font-bold text-white bg-pink-400 rounded cursor-pointer"
-      >
-        50-50
-      </button>
-      <button
-        onClick={() => handleLifelineClick("Phone a Friend")}
-        className="px-4 py-2 text-lg font-bold text-white bg-pink-400 rounded cursor-pointer"
-      >
-        Phone a Friend
-      </button>
-      <button
-        onClick={() => handleLifelineClick("Ask the Audience")}
-        className="px-4 py-2 text-lg font-bold text-white bg-pink-400 rounded cursor-pointer"
-      >
-        Ask the Audience
-      </button>
-      <button
-        onClick={() => handleLifelineClick("Flip the Question")}
-        className="px-4 py-2 text-lg font-bold text-white bg-pink-400 rounded cursor-pointer"
-      >
-        Flip the Question
-      </button>
+      {lifelines.map((lifeline) => (
+        <button
+          key={lifeline.id}
+          onClick={() => handleLifelineClick(lifeline.type)}
+          className="px-4 py-2 text-lg font-bold text-white bg-pink-400 rounded cursor-pointer"
+        >
+          {lifeline.name}
+        </button>
+      ))}
     </div>
   );
 }
