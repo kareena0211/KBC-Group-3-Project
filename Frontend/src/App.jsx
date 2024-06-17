@@ -1,9 +1,9 @@
 import { useState } from "react";
-// import Quiz from "./components/Quiz";
-// import questionsData from "./questions.json";
 import "./index.css";
-import Login from "./components/Login";
-import Signup from "./components/Signup";
+import Login from "./Pages/Login";
+import Signup from "./Pages/Signup";
+import NavBar from "./Pages/NavBar";
+import Home from "./Pages/Home";
 
 import {
   BrowserRouter as Router,
@@ -11,16 +11,9 @@ import {
   Routes,
   Navigate,
 } from "react-router-dom";
-import Quiz from "./components/Quiz";
+// import Quiz from "./components/Quiz";
 
 function App() {
-  const [start, setStart] = useState(false);
-  const [isLogin, setIsLogin] = useState(false);
-
-  const toggleForm = () => {
-    setIsLogin(!isLogin);
-  };
-
   return (
     <>
       {/* // <div className="flex flex-col items-center justify-center min-h-screen bg-gray-100">
@@ -38,6 +31,7 @@ function App() {
       {/* // ---------------------------------------------------------------- */}
 
       <Router>
+        <NavBar />
         <Routes>
           <Route path="/" element={<Login />} />
           <Route path="/signup" element={<Signup />} />

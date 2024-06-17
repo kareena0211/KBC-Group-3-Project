@@ -1,10 +1,11 @@
 import bcrypt from 'bcrypt';
-import Register from '../model/model.js';
-import { createToken } from '../midlewere/authentication.js';
+import { Register } from '../MongoesSchema/registerSchema.js';
+import { createToken } from '../Midlewere/authentication.js';
 const salt = 10
 
+// Register for new user 
 const signup = async (req, res) => {
-    const { name, email, password, mobile_number } = req.body;
+    const { name, email, password, mobile_number, role } = req.body;
     try {
         // Check if user already exists
         let user = await Register.findOne({ email });
@@ -19,17 +20,18 @@ const signup = async (req, res) => {
             name: name,
             email: email,
             password: hashedPassword,
-            mobile_number: mobile_number
+            mobile_number: mobile_number,
+            role: role
         });
 
         const result = await newUser.save();
         res.send({ message: "Signup successful", result: result });
     } catch (error) {
-        console.error(error.message);
         res.status(500).send('Server Error');
     }
 };
 
+// Login user 
 const login = async (req, res) => {
     const { email, password } = req.body;
     try {
@@ -44,7 +46,7 @@ const login = async (req, res) => {
         if (isMatch) {
             const token = createToken(email)
             res.cookie('token', token)
-            res.status(200).json({ message: "user login successfully..",user,token })
+            res.status(200).json({ message: "user login successfully..", user, token })
         } else {
             return res.status(401).json({ message: 'invalid password..' });
         }
@@ -86,17 +88,17 @@ const GetLoginData = async (req, res) => {
 
 // Update an item
 const UpdateLoginData = async (req, res) => {
-    const {email, password } = req.body;
+    const { email, password } = req.body;
     try {
-        const updatedItem = await Register.findOne({email});
-        if (!updatedItem){        
-            return res.status(404).json({message:'user not found..'})
+        const updatedItem = await Register.findOne({ email });
+        if (!updatedItem) {
+            return res.status(404).json({ message: 'user not found..' })
         }
 
-        const hashedPassword = await bcrypt.hash(password , salt)
-        const submit = ({...req.body, password:hashedPassword} )
-        const updateData = await Register.findOneAndUpdate({email},{$set:submit} , {new:true})
-        res.status(200).json({message:"user update successfully...", updateData})         
+        const hashedPassword = await bcrypt.hash(password, salt)
+        const submit = ({ ...req.body, password: hashedPassword })
+        const updateData = await Register.findOneAndUpdate({ email }, { $set: submit }, { new: true })
+        res.status(200).json({ message: "user update successfully...", updateData })
     } catch (error) {
         res.status(400).json({ message: error.message });
     }
@@ -131,4 +133,4 @@ const logout = (req, res) => {
     }
 };
 
-export { signup, login, getAllUsers, GetLoginData, DeleteUserData, UpdateLoginData, logout};
+export { signup, login, getAllUsers, GetLoginData, DeleteUserData, UpdateLoginData, logout };

@@ -1,6 +1,7 @@
 import { useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
 
+
 const Login = () => {
   const [formData, setFormData] = useState({
     email: "",
@@ -10,6 +11,7 @@ const Login = () => {
   const [successMessage, setSuccessMessage] = useState("");
   const [errorMessage, setErrorMessage] = useState("");
   const navigate = useNavigate();
+
   const validateForm = () => {
     const errors = {};
     if (!formData.email.trim()) {
@@ -35,6 +37,7 @@ const Login = () => {
       try {
         console.log("Logging in...", formData);
         setSuccessMessage("Login successful!");
+        setErrorMessage("");
         navigate("/home");
         setTimeout(() => {
           console.log("Redirecting to dashboard...");
@@ -46,6 +49,7 @@ const Login = () => {
       } catch (error) {
         setErrorMessage("Login failed. Please try again.");
         console.error("Login error:", error);
+        setSuccessMessage("");
       }
     }
   };
@@ -89,7 +93,7 @@ const Login = () => {
           >
             Login
           </button>
-          <p>
+          <p className="mt-4">
             Create an account{" "}
             <Link
               to="/signup"
@@ -98,8 +102,6 @@ const Login = () => {
               Signup
             </Link>
           </p>
-
-          {/* ------------------------------ */}
         </form>
         {successMessage && (
           <div className="text-green-500 text-sm mt-4">{successMessage}</div>

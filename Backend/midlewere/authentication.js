@@ -1,10 +1,12 @@
 import jwt from 'jsonwebtoken';
 const JWT_SECRET = '@amit123'
 
+// create token here
 const createToken = (email)=>{
     return jwt.sign({email},JWT_SECRET , {expiresIn:'1h'})
 }
 
+// verifyToken here 
 const verifyToken = async (req, res, next) => {
 
     const token = req.cookies.token;

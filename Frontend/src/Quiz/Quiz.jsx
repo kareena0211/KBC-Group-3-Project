@@ -1,0 +1,76 @@
+import React, { useState, useEffect } from "react";
+import Question from "../Questions/Question";
+import Timer from "../Timer/Timer";
+import Lifelines from "../LifeLine/Lifelines";
+
+function Quiz({ questions }) {
+  const [currentQuestion, setCurrentQuestion] = useState(0);
+  const [amount, setAmount] = useState(0);
+  const [timer, setTimer] = useState(30);
+  const [gameOver, setGameOver] = useState(false);
+  const [pauseTimer, setPauseTimer] = useState(false);
+  const [showFinalScore, setShowFinalScore] = useState(false); // State to control showing final score
+
+  useEffect(() => {
+    if (timer === 0) {
+      setGameOver(true);
+    }
+  }, [timer]);
+
+  useEffect(() => {
+    if (!pauseTimer && timer > 0) {
+      const interval = setInterval(() => {
+        setTimer((prev) => prev - 1);
+      }, 1000);
+      return () => clearInterval(interval);
+    }
+  }, [timer, pauseTimer]);
+
+  const handleNextQuestion = (isCorrect) => {
+    if (!isCorrect) {
+      setShowFinalScore(true); // Show final score when answer is incorrect
+      setPauseTimer(true); // Pause timer
+      setGameOver(true); // Game over
+      return;
+    }
+
+    if (currentQuestion + 1 < questions.length) {
+      setCurrentQuestion(currentQuestion + 1);
+      setAmount(amount + 1000);
+      setTimer(30);
+      setPauseTimer(false);
+    } else {
+      setGameOver(true);
+    }
+  };
+
+  return (
+    <div className="rounded-lg  w-11/12 h-5/6 m-0">
+      <div className="mb-3">
+        <Lifelines />
+      </div>
+      <Timer timer={timer} />
+      {!gameOver && !showFinalScore ? (
+        <Question
+          question={questions[currentQuestion]}
+          onNextQuestion={handleNextQuestion}
+          setPauseTimer={setPauseTimer}
+        />
+      ) : (
+        <div className="text-center mt-5 text-2xl text-white">
+          <h2>Game Over</h2>
+          {showFinalScore && (
+            <p>Final Amount: ₹ {amount}</p>
+          )}
+        </div>
+      )}
+      {(!gameOver || showFinalScore) && (
+        <span className="p-1 text-xl font-bold text-black bg-blue-400 rounded">
+          <span>Every Question Amount( Per Q./1000 ) = ( {currentQuestion + 0}*1000 ): ₹ {amount} Win</span>
+        </span>
+      )}
+    </div>
+  );
+}
+
+export default Quiz;

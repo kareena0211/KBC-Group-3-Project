@@ -60,6 +60,7 @@ const Signup = () => {
         setTimeout(() => {
           console.log("Redirecting to post list screen...");
         }, 2000);
+        console.log(formData)
         setFormData({
           username: "",
           email: "",
