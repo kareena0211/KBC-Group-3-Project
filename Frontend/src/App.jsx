@@ -23,8 +23,7 @@ function App() {
 
   return (
     <>
-      {/* 
-// <div className="flex flex-col items-center justify-center min-h-screen bg-gray-100">
+      {/* // <div className="flex flex-col items-center justify-center min-h-screen bg-gray-100">
     //   {!start ? (
     //     <button
     //       onClick={() => setStart(true)}
@@ -35,9 +34,8 @@ function App() {
     //   ) : (
     //     <Quiz questions={questionsData} />
     //   )}
-    // </div>
-
-    // ---------------------------------------------------------------- */}
+    // </div> */}
+      {/* // ---------------------------------------------------------------- */}
 
       <Router>
         <Routes>

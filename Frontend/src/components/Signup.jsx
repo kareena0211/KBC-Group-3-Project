@@ -56,7 +56,7 @@ const Signup = () => {
         console.log("Signing up...", formData);
         console.log("Sending welcome email to:", formData.email);
         setSuccessMessage("Signup successful!");
-        navigate("/login");
+        navigate("/");
         setTimeout(() => {
           console.log("Redirecting to post list screen...");
         }, 2000);
