@@ -7,17 +7,18 @@ import router from './router/router.js';
 
 const app = express();
 
+// connect cors HTTP method 
 app.use(cors({
     origin: true,
     methods: ["GET", "POST", "DELETE", "PUT"],
     credentials: true
 }));
 
-
-
 app.use(bodyParser.json())
 app.use(cookieParser())
+app.use('/', router);
 
+// connect momgoDB campass Backend API
 mongoose.connect('mongodb+srv://amit21:SLb3cF41HdHgsdfL@cluster0.lvclbz1.mongodb.net/?retryWrites=true&w=majority&appName=Cluster0', {
     dbName:"KBC_Game"
 })
@@ -28,15 +29,11 @@ mongoose.connect('mongodb+srv://amit21:SLb3cF41HdHgsdfL@cluster0.lvclbz1.mongodb
     console.error("Database connection error:", err);
 });
 
-app.use('/', router);
-
 app.get("/", (req, res) => {
     console.log("done");
     res.status(200).send({
         message: "ok"
     });
-
-
 });
 
 app.listen(3000, () => {

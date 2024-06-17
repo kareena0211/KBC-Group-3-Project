@@ -1,5 +1,6 @@
 import Lifeline from '../MongoesSchema/LifelineSchema.js';
 
+// create lifeline here 
 const createLifeline = async (req, res) => {
   const { name, description } = req.body;
   try {
@@ -23,6 +24,7 @@ const createLifeline = async (req, res) => {
   }
 };
 
+// Find all lifelines
 const getLifelines = async (req, res) => {
     try {
         const lifelines = await Lifeline.find({});
@@ -33,6 +35,7 @@ const getLifelines = async (req, res) => {
     }
 };
 
+// Delete lifelines by lifeline name
 const deleteLifeline = async (req, res) => {
     const { name } = req.body;
     try {

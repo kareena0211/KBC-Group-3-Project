@@ -1,5 +1,6 @@
 import Joi from 'joi';
 
+// signup/Register validation here
 const signup_Validation = (req, res, next) => {
     const schema = Joi.object({
         name: Joi.string().required(),
@@ -23,6 +24,7 @@ const signup_Validation = (req, res, next) => {
     }
 };
 
+// login vailidation here
 const login_Validation = (req, res, next) => {
     const schema = Joi.object({
         email: Joi.string().email({ minDomainSegments: 2, tlds: { allow: ['com', 'org', 'edu'] } }),

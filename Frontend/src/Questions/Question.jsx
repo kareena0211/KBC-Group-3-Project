@@ -48,6 +48,10 @@ function Question({ question, onNextQuestion, setPauseTimer }) {
                   ? isCorrect
                     ? "bg-green-500"
                     : "bg-red-500"
+
+                    // when i select wrong answer . show correct option
+                  : selectedOption !== null && question.correct === index
+                  ? "bg-green-500"
                   : ""
               }`}
               disabled={hasClicked}
@@ -68,6 +72,10 @@ function Question({ question, onNextQuestion, setPauseTimer }) {
                   ? isCorrect
                     ? "bg-green-500"
                     : "bg-red-500"
+                    
+                    // when i select wrong answer . show correct option
+                  : selectedOption !== null && question.correct === index + 2
+                  ? "bg-green-500"
                   : ""
               }`}
               disabled={hasClicked}

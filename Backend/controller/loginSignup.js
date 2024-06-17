@@ -3,6 +3,7 @@ import { Register } from '../MongoesSchema/registerSchema.js';
 import { createToken } from '../Midlewere/authentication.js';
 const salt = 10
 
+// Register for new user 
 const signup = async (req, res) => {
     const { name, email, password, mobile_number, role } = req.body;
     try {
@@ -30,6 +31,7 @@ const signup = async (req, res) => {
     }
 };
 
+// Login user 
 const login = async (req, res) => {
     const { email, password } = req.body;
     try {
