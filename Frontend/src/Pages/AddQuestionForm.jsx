@@ -3,6 +3,7 @@ import { FaQuestionCircle } from "react-icons/fa";
 import axios from "axios";
 import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
+import { useNavigate } from 'react-router-dom';  // Import useNavigate
 
 const AddQuestionForm = () => {
   const [formData, setFormData] = useState({
@@ -11,6 +12,8 @@ const AddQuestionForm = () => {
     correct: 0,
     category: "",
   });
+
+  const navigate = useNavigate();  // Initialize useNavigate
 
   const handleInputChange = (e) => {
     const { name, value } = e.target;
@@ -47,6 +50,12 @@ const AddQuestionForm = () => {
         correct: 0,
         category: "",
       });
+
+      // Redirect to the all questions page after 3 seconds
+      setTimeout(() => {
+        navigate('/FetchAllQuestions');  // Replace with your route
+      }, 3000);  // 3000 milliseconds = 3 seconds
+
     } catch (error) {
       console.error("Question Error:", error);
       toast.error("Failed to add question. Please try again.");

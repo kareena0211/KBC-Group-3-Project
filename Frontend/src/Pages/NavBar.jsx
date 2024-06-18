@@ -25,6 +25,9 @@ const NavBar = () => {
         <Link to="/FetchAllQuestions" className="btn btn-primary mx-2">
           Fetch All Questions
         </Link>
+        <Link to="/DeleteQuestion" className="btn btn-primary mx-2">
+          Delete Question
+        </Link>
         <Link to="/Login" className="btn btn-primary mx-2">
           Login
         </Link>
