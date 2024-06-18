@@ -1,5 +1,5 @@
 import { useState } from "react";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import axios from "axios";
 import { toast, ToastContainer } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
@@ -10,6 +10,21 @@ const Login = () => {
     password: "",
   });
   const [errorMessage, setErrorMessage] = useState("");
+  const navigate = useNavigate();
+
+  const validateForm = () => {
+    const errors = {};
+    if (!formData.email.trim()) {
+      errors.email = "Email is required";
+    } else if (!/^\S+@\S+\.\S+$/.test(formData.email)) {
+      errors.email = "Invalid email format";
+    }
+    if (!formData.password.trim()) {
+      errors.password = "Password is required";
+    }
+    setErrorMessage(Object.values(errors).join(". "));
+    return Object.keys(errors).length === 0;
+  };
 
   const handleInputChange = (e) => {
     const { name, value } = e.target;
@@ -18,22 +33,25 @@ const Login = () => {
 
   const handleLogin = async (e) => {
     e.preventDefault();
-    try {
-      const response = await axios.post("http://localhost:3000/login", {
-        email: formData.email,
-        password: formData.password,
-      });
+    if (validateForm()) {
+      try {
+        const response = await axios.post("http://localhost:3000/login", {
+          email: formData.email,
+          password: formData.password,
+        });
 
-      console.log("Login successful:", response.data);
-      toast.success("Login successful!");
-      setFormData({
-        email: "",
-        password: "",
-      });
-    } catch (error) {
-      console.error("Login error:", error);
-      toast.error("Login failed. Please try again.");
-      setErrorMessage("Login failed. Please try again.");
+        console.log("Login successful:", response.data);
+        toast.success("Login successful!");
+        setFormData({
+          email: "",
+          password: "",
+        });
+        navigate("/home");
+      } catch (error) {
+        console.error("Login error:", error);
+        toast.error("Login failed. Please try again.");
+        setErrorMessage("Login failed. Please try again.");
+      }
     }
   };
 
@@ -65,13 +83,16 @@ const Login = () => {
               className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-indigo-400"
             />
           </div>
+          {errorMessage && (
+            <div className="mb-4 text-red-500 text-center">{errorMessage}</div>
+          )}
           <button
             type="submit"
             className="w-full bg-indigo-500 text-white py-2 rounded-lg cursor-pointer hover:bg-indigo-700 focus:ring-4 focus:ring-indigo-400 transition duration-300"
           >
             Login
           </button>
-          <p>
+          <p className="mt-4 text-center">
             Create an account{" "}
             <Link
               to="/signup"
