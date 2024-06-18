@@ -1,6 +1,5 @@
 import { useState } from "react";
-import { Link } from "react-router-dom";
-
+import { Link, useNavigate } from "react-router-dom";
 
 const Signup = () => {
   const [formData, setFormData] = useState({
@@ -13,6 +12,7 @@ const Signup = () => {
   const [errors, setErrors] = useState({});
   const [successMessage, setSuccessMessage] = useState("");
   const [errorMessage, setErrorMessage] = useState("");
+  const navigate = useNavigate();
 
   const validateForm = () => {
     const errors = {};
@@ -56,6 +56,7 @@ const Signup = () => {
         console.log("Signing up...", formData);
         console.log("Sending welcome email to:", formData.email);
         setSuccessMessage("Signup successful!");
+        navigate("/");
         setTimeout(() => {
           console.log("Redirecting to post list screen...");
         }, 2000);
@@ -158,10 +159,11 @@ const Signup = () => {
             Signup
           </button>
           <p>
-            Already have an account <Link to="/login" className="text-blue-700 underline font-semibold">Login</Link>
+            Already have an account{" "}
+            <Link to="/" className="text-blue-700 underline font-semibold">
+              Login
+            </Link>
           </p>
-
-
 
           {/* ------------------------- */}
         </form>
