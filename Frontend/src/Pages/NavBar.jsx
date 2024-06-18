@@ -18,6 +18,10 @@ const NavBar = () => {
         <Link to="/about" className="btn btn-warning mx-2">
           About
         </Link>
+        
+        <Link to="/addquestion" className="btn btn-primary mx-2">
+          Add Questions Here
+        </Link>
         <Link to="/Login" className="btn btn-primary mx-2">
           Login
         </Link>
