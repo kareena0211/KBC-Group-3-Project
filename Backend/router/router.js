@@ -19,9 +19,9 @@ router.post('/logout/Login/data', verifyToken, loginSignup.logout);
 
 // Question
 router.post('/Create/Questions', question.PutQuestion);
-router.get('/Get/All/Questions', verifyToken, question.getAllQuestions);
+router.get('/Get/All/Questions', question.getAllQuestions);
 router.get('/Get/Random/Questions', question.getRandomQuestions);
-router.delete('/Delete/Question/name', verifyToken, question.deleteQuestion);
+router.delete('/Delete/Question/name', question.deleteQuestion);
 
 // Lifeline
 router.post('/Create/LifeLine', verifyToken, lifelines.createLifeline);

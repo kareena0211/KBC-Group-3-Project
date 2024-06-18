@@ -13,14 +13,17 @@ const NavBar = () => {
       </Link>
       <div className="right flex items-center">
         <Link to="/GameStart" className="btn btn-info mx-2">
-        GameStart
+          GameStart
         </Link>{" "}
         <Link to="/about" className="btn btn-warning mx-2">
           About
         </Link>
-        
+
         <Link to="/addquestion" className="btn btn-primary mx-2">
           Add Questions Here
+        </Link>
+        <Link to="/FetchAllQuestions" className="btn btn-primary mx-2">
+          Fetch All Questions
         </Link>
         <Link to="/Login" className="btn btn-primary mx-2">
           Login
