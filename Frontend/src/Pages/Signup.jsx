@@ -75,8 +75,8 @@ const Signup = () => {
         console.log("Signup Successful:", response.data);
         toast.success("Signup successful!");
 
-         // Navigate to login page after signup
-         navigate("/login");
+        // Navigate to login page after signup
+        navigate("/login");
         setFormData({
           name: "",
           email: "",

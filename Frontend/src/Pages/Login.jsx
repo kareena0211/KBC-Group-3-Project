@@ -47,8 +47,8 @@ const Login = () => {
         toast.success("Login successful!");
         setSuccessMessage("Login successful!");
 
-         // Navigate to Home page after login
-         navigate("/Home");
+        // Navigate to Home page after login
+        navigate("/Home");
         setFormData({
           email: "",
           password: "",
