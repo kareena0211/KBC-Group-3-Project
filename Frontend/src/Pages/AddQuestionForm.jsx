@@ -50,24 +50,6 @@ const AddQuestionForm = () => {
         <form onSubmit={handleSubmit}>
           <div className="mb-4">
             <label
-              htmlFor="name"
-              className="block text-sm font-medium text-gray-700"
-            >
-              Admin Name
-            </label>
-            <input
-              type="text"
-              id="name"
-              name="name"
-              value={formData.name}
-              onChange={handleInputChange}
-              placeholder="Enter your name"
-              className="w-full px-4 py-2 mt-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-indigo-400"
-              required
-            />
-          </div>
-          <div className="mb-4">
-            <label
               htmlFor="question"
               className="block text-sm font-medium text-gray-700"
             >

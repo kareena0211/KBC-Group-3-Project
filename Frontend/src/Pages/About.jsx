@@ -31,7 +31,7 @@ const About = () => {
             </h2>
             <ul className="list-disc list-inside text-gray-600">
               <li>Register an account and play</li>
-              <li>Play without login</li>
+              
             </ul>
           </div>
           <div className="md:w-1/2 p-4">
