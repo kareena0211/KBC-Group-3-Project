@@ -1,23 +1,26 @@
-import { useState } from "react";
-import { Link } from "react-router-dom";
-
+import React, { useState } from "react";
+import { Link, useNavigate } from "react-router-dom";
+import axios from "axios";
+import { ToastContainer, toast } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
 
 const Signup = () => {
+  const navigate = useNavigate(); // useNavigate for React Router v6
   const [formData, setFormData] = useState({
-    username: "",
+    name: "",
     email: "",
     password: "",
-    confirmPassword: "",
+    mobileNumber: "",
     terms: false,
+    role: "user",
   });
   const [errors, setErrors] = useState({});
-  const [successMessage, setSuccessMessage] = useState("");
-  const [errorMessage, setErrorMessage] = useState("");
+  const [showPassword, setShowPassword] = useState(false);
 
   const validateForm = () => {
     const errors = {};
-    if (!formData.username.trim()) {
-      errors.username = "Username is required";
+    if (!formData.name.trim()) {
+      errors.name = "Name is required";
     }
     if (!formData.email.trim()) {
       errors.email = "Email is required";
@@ -29,15 +32,23 @@ const Signup = () => {
     } else if (formData.password.trim().length < 8) {
       errors.password = "Password must be at least 8 characters";
     } else if (
-      !/(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[@$!%*?&])[A-Za-z\d@$!%*?&]{8,}/.test(
+      !/^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[@$!%*?&])[A-Za-z\d@$!%*?&]{8,}$/.test(
         formData.password
       )
     ) {
       errors.password =
-        "Password must be at least 8 characters long, contain at least one uppercase letter, one lowercase letter, one digit, and one special character";
+        "Password must contain at least one uppercase letter, one lowercase letter, one digit, and one special character";
     }
-    if (formData.password !== formData.confirmPassword) {
-      errors.confirmPassword = "Passwords must match";
+    if (!formData.mobileNumber.trim()) {
+      errors.mobileNumber = "Mobile number is required";
+    } else if (!/^\d{10}$/.test(formData.mobileNumber)) {
+      errors.mobileNumber = "Invalid mobile number format (should be 10 digits)";
+    }
+    if (!formData.role) {
+      errors.role = "Role is required";
+    }
+    if (!formData.terms) {
+      errors.terms = "Please agree to the terms and conditions";
     }
     setErrors(errors);
     return Object.keys(errors).length === 0;
@@ -45,7 +56,7 @@ const Signup = () => {
 
   const handleInputChange = (e) => {
     const { name, value, type, checked } = e.target;
-    const inputValue = type === "checkbox" ? checked : value;
+    const inputValue = type === "checkbox" ? checked : type === "tel" ? value.replace(/\D/, '') : value;
     setFormData({ ...formData, [name]: inputValue });
   };
 
@@ -53,25 +64,36 @@ const Signup = () => {
     e.preventDefault();
     if (validateForm()) {
       try {
-        console.log("Signing up...", formData);
-        console.log("Sending welcome email to:", formData.email);
-        setSuccessMessage("Signup successful!");
-        setTimeout(() => {
-          console.log("Redirecting to post list screen...");
-        }, 2000);
-        console.log(formData)
+        const response = await axios.post("http://localhost:3000/post", {
+          name: formData.name,
+          email: formData.email,
+          password: formData.password,
+          mobile_number: formData.mobileNumber,
+          role: formData.role,
+        });
+
+        console.log("Signup Successful:", response.data);
+        toast.success("Signup successful!");
+
+         // Navigate to login page after signup
+         navigate("/login");
         setFormData({
-          username: "",
+          name: "",
           email: "",
           password: "",
-          confirmPassword: "",
+          mobileNumber: "",
           terms: false,
+          role: "user",
         });
       } catch (error) {
-        setErrorMessage("Signup failed. Please try again.");
-        console.error("Signup error:", error);
+        console.error("Signup Error:", error);
+        toast.error("Signup failed. Please try again.");
       }
     }
+  };
+
+  const toggleShowPassword = () => {
+    setShowPassword(!showPassword);
   };
 
   return (
@@ -81,20 +103,20 @@ const Signup = () => {
           Signup
         </h1>
         <form onSubmit={handleSignup}>
-          <div className="mb-4">
+          <div className="mb-2">
             <input
               type="text"
-              name="username"
-              value={formData.username}
+              name="name"
+              value={formData.name}
               onChange={handleInputChange}
-              placeholder="Username"
+              placeholder="Name"
               className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-indigo-400"
             />
-            {errors.username && (
-              <div className="text-red-500 text-sm mt-1">{errors.username}</div>
+            {errors.name && (
+              <div className="text-red-500 text-sm mt-1">{errors.name}</div>
             )}
           </div>
-          <div className="mb-4">
+          <div className="mb-2">
             <input
               type="email"
               name="email"
@@ -107,35 +129,58 @@ const Signup = () => {
               <div className="text-red-500 text-sm mt-1">{errors.email}</div>
             )}
           </div>
-          <div className="mb-4">
+          <div className="mb-2 relative">
             <input
-              type="password"
+              type={showPassword ? "text" : "password"}
               name="password"
               value={formData.password}
               onChange={handleInputChange}
               placeholder="Password"
               className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-indigo-400"
             />
+            <span
+              onClick={toggleShowPassword}
+              className="absolute right-3 top-3 cursor-pointer"
+            >
+              {showPassword ? "Hide" : "Show"}
+            </span>
             {errors.password && (
               <div className="text-red-500 text-sm mt-1">{errors.password}</div>
             )}
           </div>
-          <div className="mb-4">
+          <div className="mb-2">
             <input
-              type="password"
-              name="confirmPassword"
-              value={formData.confirmPassword}
+              type="tel"
+              name="mobileNumber"
+              value={formData.mobileNumber}
               onChange={handleInputChange}
-              placeholder="Confirm Password"
+              placeholder="Mobile Number"
               className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-indigo-400"
             />
-            {errors.confirmPassword && (
+            {errors.mobileNumber && (
               <div className="text-red-500 text-sm mt-1">
-                {errors.confirmPassword}
+                {errors.mobileNumber}
               </div>
             )}
           </div>
-          <div className="mb-4 flex items-center">
+          <div className="mb-2">
+            <label className="block text-gray-700 text-sm font-bold mb-2">
+              Role
+            </label>
+            <select
+              name="role"
+              value={formData.role}
+              onChange={handleInputChange}
+              className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-indigo-400"
+            >
+              <option value="user">User</option>
+              <option value="admin">Admin</option>
+            </select>
+            {errors.role && (
+              <div className="text-red-500 text-sm mt-1">{errors.role}</div>
+            )}
+          </div>
+          <div className="mb-2 flex items-center">
             <input
               type="checkbox"
               name="terms"
@@ -158,20 +203,14 @@ const Signup = () => {
             Signup
           </button>
           <p>
-            Already have an account <Link to="/login" className="text-blue-700 underline font-semibold">Login</Link>
+            Already have an account?{" "}
+            <Link to="/login" className="text-blue-700 underline font-semibold">
+              Login
+            </Link>
           </p>
-
-
-
-          {/* ------------------------- */}
         </form>
-        {successMessage && (
-          <div className="text-green-500 text-sm mt-4">{successMessage}</div>
-        )}
-        {errorMessage && (
-          <div className="text-red-500 text-sm mt-4">{errorMessage}</div>
-        )}
       </div>
+      <ToastContainer />
     </div>
   );
 };
