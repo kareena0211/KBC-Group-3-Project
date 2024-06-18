@@ -4,7 +4,9 @@ import "./index.css";
 import Login from "./Pages/Login";
 import Signup from "./Pages/Signup";
 import NavBar from "./Pages/NavBar";
-import Home from "./Pages/Home";
+import GameStart from "./Pages/GameStart";
+import About from "./Pages/About";
+import AddQuestionForm from "./Pages/AddQuestionForm";
 
 function App() {
   const [firstVisit, setFirstVisit] = useState(true);
@@ -23,10 +25,12 @@ function App() {
     <Router>
       <NavBar />
       <Routes>
-        <Route path="/Home" element={<Home />} />
+        <Route path="/GameStart" element={<GameStart />} />
+        <Route path="/about" element={<About />} />
+        <Route path="/addquestion" element={<AddQuestionForm />} />
         <Route path="/Login" element={<Login />} />
         <Route path="/Signup" element={<Signup />} />
-        <Route path="/" element={firstVisit ? <Navigate to="/Signup" /> : <Home />} />
+        <Route path="/" element={firstVisit ? <Navigate to="/Signup" /> : <GameStart />} />
       </Routes>
     </Router>
   );

@@ -26,6 +26,7 @@ const Login = () => {
       errors.password = "Password is required";
     }
     setErrors(errors);
+    setErrorMessage(Object.values(errors).join(". "));
     return Object.keys(errors).length === 0;
   };
 
@@ -48,7 +49,7 @@ const Login = () => {
         setSuccessMessage("Login successful!");
 
         // Navigate to Home page after login
-        navigate("/Home");
+        navigate("/GameStart");
         setFormData({
           email: "",
           password: "",
@@ -105,13 +106,16 @@ const Login = () => {
               <div className="text-red-500 text-sm mt-1">{errors.password}</div>
             )}
           </div>
+          {errorMessage && (
+            <div className="mb-4 text-red-500 text-center">{errorMessage}</div>
+          )}
           <button
             type="submit"
             className="w-full bg-indigo-500 text-white py-2 rounded-lg cursor-pointer hover:bg-indigo-700 focus:ring-4 focus:ring-indigo-400 transition duration-300"
           >
             Login
           </button>
-          <p>
+          <p className="mt-4 text-center">
             Create an account{" "}
             <Link
               to="/signup"
