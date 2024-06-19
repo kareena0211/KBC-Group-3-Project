@@ -28,7 +28,7 @@ function FetchAllQuestions() {
             <h2 className="text-lg font-semibold mb-2">{question.question}</h2>
             <ul className="space-y-2">
               {question.options.map((option, index) => (
-                <li key={index}>{option}</li>
+                <li key={index}>{index} : {option}</li>
               ))}
             </ul>
             <p className="mt-2">Correct Answer( Index Wise ) : {question.correct}</p>

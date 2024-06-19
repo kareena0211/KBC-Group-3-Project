@@ -11,7 +11,7 @@ const NavBar = () => {
   };
 
   return (
-    <div className="fixed top-0 left-0 right-0 bg-dark p-2 flex justify-between items-center z-10">
+    <div className="fixed top-0 left-0 right-0 bg-slate-400 p-2 flex justify-between items-center z-10">
       <div className="w-full max-w-screen-xl mx-auto px-4">
         <div className="flex justify-between items-center">
           <Link
@@ -29,18 +29,18 @@ const NavBar = () => {
               GameStart
             </NavLink>
             <NavLink
-              to="/about"
-              onClick={() => handleClick("/about")}
-              active={activeLink === "/about"}
-            >
-              About
-            </NavLink>
-            <NavLink
               to="/addquestion"
               onClick={() => handleClick("/addquestion")}
               active={activeLink === "/addquestion"}
             >
               Add Questions
+            </NavLink>
+            <NavLink
+              to="/DeleteQuestion"
+              onClick={() => handleClick("/DeleteQuestion")}
+              active={activeLink === "/DeleteQuestion"}
+            >
+              Delete Question
             </NavLink>
             <NavLink
               to="/FetchAllQuestions"
@@ -50,11 +50,11 @@ const NavBar = () => {
               Fetch All Questions
             </NavLink>
             <NavLink
-              to="/DeleteQuestion"
-              onClick={() => handleClick("/DeleteQuestion")}
-              active={activeLink === "/DeleteQuestion"}
+              to="/about"
+              onClick={() => handleClick("/about")}
+              active={activeLink === "/about"}
             >
-              Delete Question
+              About
             </NavLink>
             <NavLink
               to="/Login"
