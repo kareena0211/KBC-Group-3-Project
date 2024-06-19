@@ -13,19 +13,26 @@ function Question({ question, onNextQuestion, setPauseTimer }) {
   const handleOptionClick = (index) => {
     if (!hasClicked) {
       setSelectedOption(index);
-      setIsCorrect(index === question.correct);
+      const correct = index === question.correct;
+      setIsCorrect(correct);
       setPauseTimer(true);
       setHasClicked(true);
 
-      if (index === question.correct) {
+      if (correct) {
         playCorrect(); // Play correct answer sound
+        setTimeout(() => {
+          handleNext(correct); // // Proceed immediately if correct
+        }, 4000);
       } else {
         playIncorrect(); // Play incorrect answer sound
+        setTimeout(() => {
+          handleNext(correct); // Delay before proceeding if incorrect
+        }, 4000);
       }
     }
   };
 
-  const handleNext = () => {
+  const handleNext = (isCorrect) => {
     onNextQuestion(isCorrect);
     setSelectedOption(null);
     setIsCorrect(null);
@@ -43,13 +50,11 @@ function Question({ question, onNextQuestion, setPauseTimer }) {
             <button
               key={index}
               onClick={() => handleOptionClick(index)}
-              className={`w-full py-2 text-lg bg-gray-300 rounded-full cursor-pointer focus:outline-none ${
+              className={`w-full py-2 text-2xl bg-gray-300 rounded-full cursor-pointer focus:outline-none ${
                 selectedOption !== null && selectedOption === index
                   ? isCorrect
                     ? "bg-green-500"
                     : "bg-red-500"
-
-                    // when i select wrong answer . show correct option
                   : selectedOption !== null && question.correct === index
                   ? "bg-green-500"
                   : ""
@@ -60,20 +65,18 @@ function Question({ question, onNextQuestion, setPauseTimer }) {
             </button>
           ))}
         </div>
-        
+
         {/* Displaying options on the right */}
         <div className="w-full md:w-1/2 space-y-5 mb-3">
           {question.options.slice(2).map((option, index) => (
             <button
-              key={index + 2} 
+              key={index + 2}
               onClick={() => handleOptionClick(index + 2)}
-              className={`w-full py-2 text-lg bg-gray-300 rounded-full cursor-pointer focus:outline-none ${
+              className={`w-full py-2 text-2xl bg-gray-300 rounded-full cursor-pointer focus:outline-none ${
                 selectedOption !== null && selectedOption === index + 2
                   ? isCorrect
                     ? "bg-green-500"
                     : "bg-red-500"
-                    
-                    // when i select wrong answer . show correct option
                   : selectedOption !== null && question.correct === index + 2
                   ? "bg-green-500"
                   : ""
@@ -85,15 +88,6 @@ function Question({ question, onNextQuestion, setPauseTimer }) {
           ))}
         </div>
       </div>
-      
-      {selectedOption !== null && (
-        <button
-          onClick={handleNext}
-          className="w-full mt-4 mb-3 py-2 text-lg text-white bg-pink-600 rounded cursor-pointer focus:outline-none"
-        >
-          Next
-        </button>
-      )}
     </div>
   );
 }
