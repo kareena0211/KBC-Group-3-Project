@@ -18,14 +18,14 @@ router.delete('/delete/login/user/by/email', verifyToken, loginSignup.DeleteUser
 router.post('/logout/Login/data', verifyToken, loginSignup.logout);
 
 // Question
-router.post('/Create/Questions', verifyToken, question.PutQuestion);
-router.get('/Get/All/Questions', verifyToken, question.getAllQuestions);
+router.post('/Create/Questions', question.PutQuestion);
+router.get('/Get/All/Questions', question.getAllQuestions);
 router.get('/Get/Random/Questions', question.getRandomQuestions);
-router.delete('/Delete/Question/name', verifyToken, question.deleteQuestion);
+router.delete('/Delete/Question/name', question.deleteQuestion);
 
 // Lifeline
 router.post('/Create/LifeLine', verifyToken, lifelines.createLifeline);
-router.get('/GetAll/Lifelines', verifyToken, lifelines.getLifelines);
+router.get('/GetAll/Lifelines', lifelines.getLifelines);
 router.delete('/delete/Lifeline/by/name', verifyToken, lifelines.deleteLifeline);
 
 export default router;

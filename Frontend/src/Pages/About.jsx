@@ -1,14 +1,9 @@
 import React from "react";
-import {
-  FaUserAlt,
-  FaGamepad,
-  FaQuestionCircle,
-  FaLifeRing,
-} from "react-icons/fa";
+import {FaUserAlt, FaGamepad, FaQuestionCircle, FaLifeRing,} from "react-icons/fa";
 
 const About = () => {
   return (
-    <div className="bg-gray-100 min-h-screen flex flex-col items-center justify-center p-5">
+    <div className="bg-gray-100 min-h-screen flex flex-col items-center justify-center p-5 mt-5">
       <div className="max-w-4xl bg-white shadow-lg rounded-lg p-8">
         <div className="flex items-center justify-between">
           <h1 className="text-4xl font-bold text-gray-800 mb-4">

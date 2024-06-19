@@ -8,6 +8,7 @@ import router from './router/router.js';
 const app = express();
 
 // connect cors HTTP method 
+// app.use(cors('*'));
 app.use(cors({
     origin: true,
     methods: ["GET", "POST", "DELETE", "PUT"],
