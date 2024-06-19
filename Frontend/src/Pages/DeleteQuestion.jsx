@@ -32,7 +32,7 @@ const DeleteQuestion = () => {
   return (
     <div className="flex flex-col items-center justify-center min-h-screen bg-gray-100">
       <div className="bg-white p-6 rounded shadow-md w-full max-w-md">
-        <h1 className="text-2xl font-bold mb-4">Delete Question</h1>
+        <h1 className="text-2xl font-bold mb-4">Delete Question By Question Name</h1>
         <textarea
           className="w-full p-2 border border-gray-300 rounded mb-4"
           rows="4"
