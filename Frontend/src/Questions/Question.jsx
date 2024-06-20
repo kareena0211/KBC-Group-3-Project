@@ -21,7 +21,7 @@ function Question({ question, onNextQuestion, setPauseTimer }) {
       if (correct) {
         playCorrect(); // Play correct answer sound
         setTimeout(() => {
-          handleNext(correct); // // Proceed immediately if correct
+          handleNext(correct); // Proceed immediately if correct
         }, 4000);
       } else {
         playIncorrect(); // Play incorrect answer sound
@@ -41,16 +41,16 @@ function Question({ question, onNextQuestion, setPauseTimer }) {
   };
 
   return (
-    <div className="w-11/12 text-lg text-center mt-4">
-      <span className="text-2xl bg-slate-50 rounded-full p-2">{question.question}</span>
-      <div className="flex flex-wrap mt-4">
+    <div className="w-full md:w-11/12 lg:w-9/12 xl:w-8/12 text-lg text-center mt-2 mb-2 mx-auto">
+      <span className="text-2xl bg-slate-50 rounded-full ml-5 p-2 block">{question.question}</span>
+      <div className="flex mt-4">
         {/* Displaying options on the left */}
-        <div className="w-full md:w-1/2 space-y-5">
+        <div className="w-full md:w-1/2 space-y-1 ml-5 mb-1">
           {question.options.slice(0, 2).map((option, index) => (
             <button
               key={index}
               onClick={() => handleOptionClick(index)}
-              className={`w-full py-2 text-2xl bg-gray-300 rounded-full cursor-pointer focus:outline-none ${
+              className={`w-full py-2 text-xl bg-gray-300 rounded-full cursor-pointer focus:outline-none ${
                 selectedOption !== null && selectedOption === index
                   ? isCorrect
                     ? "bg-green-500"
@@ -67,12 +67,12 @@ function Question({ question, onNextQuestion, setPauseTimer }) {
         </div>
 
         {/* Displaying options on the right */}
-        <div className="w-full md:w-1/2 space-y-5 mb-3">
+        <div className="w-full md:w-1/2 space-y-1 mb-2 ml-5">
           {question.options.slice(2).map((option, index) => (
             <button
               key={index + 2}
               onClick={() => handleOptionClick(index + 2)}
-              className={`w-full py-2 text-2xl bg-gray-300 rounded-full cursor-pointer focus:outline-none ${
+              className={`w-full py-2 text-xl bg-gray-300 rounded-full cursor-pointer focus:outline-none ${
                 selectedOption !== null && selectedOption === index + 2
                   ? isCorrect
                     ? "bg-green-500"

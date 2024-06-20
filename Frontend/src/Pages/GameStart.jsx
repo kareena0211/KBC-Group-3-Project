@@ -8,12 +8,12 @@ import bgImage from "../assets/bg.jpg";
 const GameStart = () => {
   const [start, setStart] = useState(false);
   const [questions, setQuestions] = useState([]);
-  console.log('Fetch data from database :- ',questions);
+  console.log('Fetch data from database :- ', questions);
   const [play] = useSound(buttonClickSound);
 
   const fetchQuestionsFromDB = async () => {
     try {
-      const response = await axios.get('http://localhost:3000/Get/Random/Questions'); 
+      const response = await axios.get('http://localhost:3000/Get/Random/Questions');
       setQuestions(response.data.selectedQuestions);
       setStart(true); // Once questions are fetched, set start to true to render Quiz component
     } catch (error) {
@@ -24,7 +24,7 @@ const GameStart = () => {
 
   return (
     <>
-      <div className="flex flex-col items-center justify-center h-screen bg-image bg-gray-100"
+      <div className="flex flex-col items-center justify-center min-h-screen bg-gray-100"
         style={{
           backgroundImage: `url(${bgImage})`,
           backgroundSize: 'cover',
@@ -42,7 +42,9 @@ const GameStart = () => {
             Start KBC Game
           </button>
         ) : (
-          <Quiz questions={questions} /> // Pass fetched questions to Quiz component
+          <div className="w-full max-w-screen-lg mx-auto">
+            <Quiz questions={questions} /> {/* Pass fetched questions to Quiz component */}
+          </div>
         )}
       </div>
     </>
