@@ -5,7 +5,7 @@ import axios from 'axios'; // Import Axios for API requests
 import buttonClickSound from "../Sounds/play.mp3";
 import bgImage from "../assets/bg.jpg";
 
-const Home = () => {
+const GameStart = () => {
   const [start, setStart] = useState(false);
   const [questions, setQuestions] = useState([]);
   console.log('Fetch data from database :- ',questions);
@@ -49,4 +49,4 @@ const Home = () => {
   );
 };
 
-export default Home;
+export default GameStart;

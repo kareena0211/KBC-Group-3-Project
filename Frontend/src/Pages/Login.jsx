@@ -5,12 +5,15 @@ import { toast, ToastContainer } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 
 const Login = () => {
+  const navigate = useNavigate(); // useNavigate for React Router v6
   const [formData, setFormData] = useState({
     email: "",
     password: "",
   });
+  const [errors, setErrors] = useState({});
+  const [successMessage, setSuccessMessage] = useState("");
   const [errorMessage, setErrorMessage] = useState("");
-  const navigate = useNavigate();
+  const [showPassword, setShowPassword] = useState(false);
 
   const validateForm = () => {
     const errors = {};
@@ -22,6 +25,7 @@ const Login = () => {
     if (!formData.password.trim()) {
       errors.password = "Password is required";
     }
+    setErrors(errors);
     setErrorMessage(Object.values(errors).join(". "));
     return Object.keys(errors).length === 0;
   };
@@ -42,17 +46,24 @@ const Login = () => {
 
         console.log("Login successful:", response.data);
         toast.success("Login successful!");
+        setSuccessMessage("Login successful!");
+
+        // Navigate to Home page after login
+        navigate("/GameStart");
         setFormData({
           email: "",
           password: "",
         });
-        navigate("/home");
       } catch (error) {
         console.error("Login error:", error);
         toast.error("Login failed. Please try again.");
         setErrorMessage("Login failed. Please try again.");
       }
     }
+  };
+
+  const toggleShowPassword = () => {
+    setShowPassword(!showPassword);
   };
 
   return (
@@ -72,16 +83,28 @@ const Login = () => {
               placeholder="Email"
               className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-indigo-400"
             />
+            {errors.email && (
+              <div className="text-red-500 text-sm mt-1">{errors.email}</div>
+            )}
           </div>
-          <div className="mb-4">
+          <div className="mb-4 relative">
             <input
-              type="password"
+              type={showPassword ? "text" : "password"}
               name="password"
               value={formData.password}
               onChange={handleInputChange}
               placeholder="Password"
               className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-indigo-400"
             />
+            <span
+              onClick={toggleShowPassword}
+              className="absolute right-3 top-3 cursor-pointer"
+            >
+              {showPassword ? "Hide" : "Show"}
+            </span>
+            {errors.password && (
+              <div className="text-red-500 text-sm mt-1">{errors.password}</div>
+            )}
           </div>
           {errorMessage && (
             <div className="mb-4 text-red-500 text-center">{errorMessage}</div>

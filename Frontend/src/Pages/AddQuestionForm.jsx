@@ -1,13 +1,19 @@
 import React, { useState } from "react";
 import { FaQuestionCircle } from "react-icons/fa";
+import axios from "axios";
+import { ToastContainer, toast } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
+import { useNavigate } from 'react-router-dom';  // Import useNavigate
 
 const AddQuestionForm = () => {
   const [formData, setFormData] = useState({
-    name: "",
     question: "",
     options: ["", "", "", ""],
-    correctOption: 0,
+    correct: 0,
+    category: "",
   });
+
+  const navigate = useNavigate();  // Initialize useNavigate
 
   const handleInputChange = (e) => {
     const { name, value } = e.target;
@@ -21,34 +27,50 @@ const AddQuestionForm = () => {
   };
 
   const handleCorrectOptionChange = (index) => {
-    setFormData({ ...formData, correctOption: index });
+    setFormData({ ...formData, correct: index });
   };
 
-  const handleSubmit = (e) => {
+  const handleSubmit = async (e) => {
     e.preventDefault();
+    try {
+      const response = await axios.post("http://localhost:3000/Create/Questions", {
+        question: formData.question,
+        options: formData.options,
+        correct: formData.correct,
+        category: formData.category,
+      });
 
-    // Backend person will Add  logic to submit the form data (e.g., send to server or store locally)
+      console.log("Question added successfully:", response.data);
+      toast.success("Question added successfully!");
 
-    console.log("Form data:", formData);
-    setFormData({
-      name: "",
-      question: "",
-      options: ["", "", "", ""],
-      correctOption: 0,
-    });
+      // Clear the form fields after submission
+      setFormData({
+        question: "",
+        options: ["", "", "", ""],
+        correct: 0,
+        category: "",
+      });
 
-    // Clearing form fields after submission , so that , user not need to clean that
+      // Redirect to the all questions page after 3 seconds
+      setTimeout(() => {
+        navigate('/FetchAllQuestions');  // Replace with your route
+      }, 3000);  // 3000 milliseconds = 3 seconds
+
+    } catch (error) {
+      console.error("Question Error:", error);
+      toast.error("Failed to add question. Please try again.");
+    }
   };
 
   return (
-    <div className="bg-slate-300 p-10">
+    <div className="bg-slate-300 p-10 mt-5">
       <div className="max-w-md mx-auto bg-white p-8 rounded-lg shadow-lg">
         <h2 className="text-2xl font-bold mb-4 text-gray-800 flex items-center">
           <FaQuestionCircle className="mr-2 text-blue-500" />
           Add Question
         </h2>
         <form onSubmit={handleSubmit}>
-          <div className="mb-4">
+          <div className="mb-2">
             <label
               htmlFor="question"
               className="block text-sm font-medium text-gray-700"
@@ -62,11 +84,11 @@ const AddQuestionForm = () => {
               onChange={handleInputChange}
               placeholder="Enter the question"
               className="w-full px-4 py-2 mt-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-indigo-400"
-              rows="4"
+              rows="3"
               required
             ></textarea>
           </div>
-          <div className="mb-4">
+          <div className="mb-1">
             <label className="block text-sm font-medium text-gray-700">
               Options
             </label>
@@ -82,15 +104,33 @@ const AddQuestionForm = () => {
                 />
                 <input
                   type="radio"
-                  name="correctOption"
+                  name="correct"
                   value={index}
-                  checked={formData.correctOption === index}
+                  checked={formData.correct === index}
                   onChange={() => handleCorrectOptionChange(index)}
                   className="ml-4"
                 />
                 <span className="ml-2 text-sm text-gray-700">Correct</span>
               </div>
             ))}
+          </div>
+          <div className="mb-4">
+            <label
+              htmlFor="category"
+              className="block text-sm font-medium text-gray-700"
+            >
+              Question Category Name
+            </label>
+            <input
+              type="text"
+              id="category"
+              name="category"
+              value={formData.category}
+              onChange={handleInputChange}
+              placeholder="Enter the category"
+              className="w-full px-4 py-2 mt-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-indigo-400"
+              required
+            />
           </div>
           <button
             type="submit"
@@ -99,6 +139,7 @@ const AddQuestionForm = () => {
             Submit
           </button>
         </form>
+        <ToastContainer />
       </div>
     </div>
   );

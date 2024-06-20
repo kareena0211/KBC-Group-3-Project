@@ -45,19 +45,22 @@ function Quiz({ questions }) {
   };
 
   return (
-    <div className="rounded-lg  w-11/12 h-5/6 m-0">
-      <div className="mb-3">
-        <Lifelines />
-      </div>
-      <Timer timer={timer} />
-      {!gameOver && !showFinalScore ? (
+    <div className="rounded-lg w-11/12 h-5/6 m-0 flex flex-col items-center justify-center">
+        {!gameOver && (
+        <div>
+          <Lifelines />
+          <Timer timer={timer} />
+        </div>
+      )}
+      {!gameOver ? (
         <Question
           question={questions[currentQuestion]}
           onNextQuestion={handleNextQuestion}
           setPauseTimer={setPauseTimer}
         />
+
       ) : (
-        <div className="text-center mt-5 text-2xl text-white">
+        <div className="text-center mb-3 text-3xl text-black bg-white p-5 rounded-lg shadow-lg w-full max-w-xl">
           <h2>Game Over</h2>
           {showFinalScore && (
             <p>Final Amount: ₹ {amount}</p>
@@ -66,7 +69,7 @@ function Quiz({ questions }) {
       )}
       {(!gameOver || showFinalScore) && (
         <span className="p-1 text-xl font-bold text-black bg-blue-400 rounded">
-          <span>Every Question Amount( Per Q./1000 ) = ( {currentQuestion + 0}*1000 ): ₹ {amount} Win</span>
+          <span>Every Question Amount( Per Q./1000 ) = ( {currentQuestion}*1000 ): ₹ {amount} Win</span>
         </span>
       )}
     </div>
