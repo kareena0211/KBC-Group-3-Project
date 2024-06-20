@@ -63,7 +63,7 @@ const AddQuestionForm = () => {
   };
 
   return (
-    <div className="bg-slate-300 p-10 mt-5">
+    <div className="bg-slate-300 p-10">
       <div className="max-w-md mx-auto bg-white p-8 rounded-lg shadow-lg">
         <h2 className="text-2xl font-bold mb-4 text-gray-800 flex items-center">
           <FaQuestionCircle className="mr-2 text-blue-500" />
