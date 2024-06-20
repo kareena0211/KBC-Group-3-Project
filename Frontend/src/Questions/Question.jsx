@@ -42,23 +42,22 @@ function Question({ question, onNextQuestion, setPauseTimer }) {
 
   return (
     <div className="w-full md:w-11/12 lg:w-9/12 xl:w-8/12 text-lg text-center mt-2 mb-2 mx-auto">
-      <span className="text-2xl bg-slate-50 rounded-full ml-5 p-2 block">{question.question}</span>
-      <div className="flex mt-4">
+      <span className="text-2xl bg-slate-50 rounded-full mb-3 ml-5 p-2 block">{question.question}</span>
+      <div className="grid grid-cols-1 md:grid-cols-2 gap-1 mt-2">
         {/* Displaying options on the left */}
-        <div className="w-full md:w-1/2 space-y-1 ml-5 mb-1">
+        <div className="space-y-1 ml-5">
           {question.options.slice(0, 2).map((option, index) => (
             <button
               key={index}
               onClick={() => handleOptionClick(index)}
-              className={`w-full py-2 text-xl bg-gray-300 rounded-full cursor-pointer focus:outline-none ${
-                selectedOption !== null && selectedOption === index
-                  ? isCorrect
-                    ? "bg-green-500"
-                    : "bg-red-500"
-                  : selectedOption !== null && question.correct === index
+              className={`w-full py-2 text-xl bg-gray-300 rounded-full cursor-pointer focus:outline-none ${selectedOption !== null && selectedOption === index
+                ? isCorrect
+                  ? "bg-green-500"
+                  : "bg-red-500"
+                : selectedOption !== null && question.correct === index
                   ? "bg-green-500"
                   : ""
-              }`}
+                }`}
               disabled={hasClicked}
             >
               {option}
@@ -67,20 +66,19 @@ function Question({ question, onNextQuestion, setPauseTimer }) {
         </div>
 
         {/* Displaying options on the right */}
-        <div className="w-full md:w-1/2 space-y-1 mb-2 ml-5">
+        <div className="space-y-1 ml-5">
           {question.options.slice(2).map((option, index) => (
             <button
               key={index + 2}
               onClick={() => handleOptionClick(index + 2)}
-              className={`w-full py-2 text-xl bg-gray-300 rounded-full cursor-pointer focus:outline-none ${
-                selectedOption !== null && selectedOption === index + 2
-                  ? isCorrect
-                    ? "bg-green-500"
-                    : "bg-red-500"
-                  : selectedOption !== null && question.correct === index + 2
+              className={`w-full py-2 text-xl bg-gray-300 rounded-full cursor-pointer focus:outline-none ${selectedOption !== null && selectedOption === index + 2
+                ? isCorrect
+                  ? "bg-green-500"
+                  : "bg-red-500"
+                : selectedOption !== null && question.correct === index + 2
                   ? "bg-green-500"
                   : ""
-              }`}
+                }`}
               disabled={hasClicked}
             >
               {option}

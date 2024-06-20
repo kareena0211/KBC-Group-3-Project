@@ -3,6 +3,7 @@ import express from 'express';
 import * as loginSignup from '../controller/loginSignup.js';
 import * as question from '../controller/Question.js';
 import * as lifelines from '../controller/Lifeline.js';
+import * as AskAudienceGraph from '../controller/AskAudience.js'
 import { verifyToken } from '../Midlewere/authentication.js';
 import {signup_Validation, login_Validation} from '../VailidationLiginSignup/liginSignupVailidation.js'
 
@@ -27,5 +28,10 @@ router.delete('/Delete/Question/name', question.deleteQuestion);
 router.post('/Create/LifeLine', verifyToken, lifelines.createLifeline);
 router.get('/GetAll/Lifelines', lifelines.getLifelines);
 router.delete('/delete/Lifeline/by/name', verifyToken, lifelines.deleteLifeline);
+
+// AskAudience Graph router
+router.post('/Create/AskAudience/Graph', AskAudienceGraph.CreateAudienceGraph);
+router.get('/Get/All/AskAudience/Graph/Data', AskAudienceGraph.getAllAskAudienceData);
+// router.delete('/delete/Lifeline/by/name', AskAudienceGraph.AskAudienceGraph);
 
 export default router;
