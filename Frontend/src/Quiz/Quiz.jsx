@@ -60,7 +60,7 @@ function Quiz({ questions }) {
         />
 
       ) : (
-        <div className="text-center mb-3 text-3xl text-black bg-white p-5 rounded-lg shadow-lg w-full max-w-xl">
+        <div className="text-center mb-3 ml-7 text-3xl text-black bg-white p-4 rounded-lg shadow-lg w-full max-w-xl">
           <h2>Game Over</h2>
           {showFinalScore && (
             <p>Final Amount: ₹ {amount}</p>
@@ -68,7 +68,7 @@ function Quiz({ questions }) {
         </div>
       )}
       {(!gameOver || showFinalScore) && (
-        <span className="p-1 text-xl font-bold text-black bg-blue-400 rounded">
+        <span className="p-1 text-xl font-bold text-black bg-blue-400 rounded ml-8 mb-3">
           <span>Every Question Amount( Per Q./1000 ) = ( {currentQuestion}*1000 ): ₹ {amount} Win</span>
         </span>
       )}
