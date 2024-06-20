@@ -27,16 +27,18 @@ function Lifelines() {
   }, []);
 
   return (
-    <div className="flex gap-2">
-      {lifelines.map((lifeline) => (
-        <button
-          key={lifeline.id}
-          onClick={() => handleLifelineClick(lifeline.type)}
-          className="px-4 py-2 text-2xl mb-3 font-bold text-white bg-pink-400 rounded cursor-pointer"
-        >
-          {lifeline.name}
-        </button>
-      ))}
+    <div className="container mx-auto p-3">
+      <div className="flex flex-wrap justify-center gap-2">
+        {lifelines.map((lifeline) => (
+          <button
+            key={lifeline.id}
+            onClick={() => handleLifelineClick(lifeline.type)}
+            className="w-full sm:w-auto px-4 py-2 text-lg sm:text-xl lg:text-2xl font-bold text-white bg-pink-400 rounded cursor-pointer hover:bg-pink-500 transition-colors"
+          >
+            {lifeline.name}
+          </button>
+        ))}
+      </div>
     </div>
   );
 }

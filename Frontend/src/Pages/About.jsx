@@ -3,13 +3,13 @@ import {FaUserAlt, FaGamepad, FaQuestionCircle, FaLifeRing,} from "react-icons/f
 
 const About = () => {
   return (
-    <div className="bg-gray-100 min-h-screen flex flex-col items-center justify-center p-5 mt-5">
+    <div className="bg-gray-100 min-h-screen flex flex-col items-center justify-center p-5">
       <div className="max-w-4xl bg-white shadow-lg rounded-lg p-8">
         <div className="flex items-center justify-between">
-          <h1 className="text-4xl font-bold text-gray-800 mb-4">
+          <h1 className="text-4xl font-bold text-gray-800 mb-1">
             About KBC Game
           </h1>
-          <FaGamepad className="text-4xl text-blue-500" />
+          <FaGamepad className="text-8xl text-blue-500" />
         </div>
         <p className="text-lg text-gray-600 mb-4">
           Welcome to the KBC Game! Test your knowledge with 80 challenging
@@ -21,7 +21,7 @@ const About = () => {
         </p>
         <div className="flex flex-col md:flex-row items-center md:items-start">
           <div className="md:w-1/2 p-4">
-            <h2 className="text-2xl font-semibold text-gray-800 mb-2 flex items-center">
+            <h2 className="text-3xl font-semibold text-gray-800 mb-2 flex items-center">
               <FaUserAlt className="mr-2 text-blue-500" /> User Features
             </h2>
             <ul className="list-disc list-inside text-gray-600">
@@ -30,7 +30,7 @@ const About = () => {
             </ul>
           </div>
           <div className="md:w-1/2 p-4">
-            <h2 className="text-2xl font-semibold text-gray-800 mb-2 flex items-center">
+            <h2 className="text-3xl font-semibold text-gray-800 mb-2 flex items-center">
               <FaQuestionCircle className="mr-2 text-blue-500" /> Lifelines
             </h2>
             <ul className="list-disc list-inside text-gray-600">
