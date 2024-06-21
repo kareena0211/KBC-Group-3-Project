@@ -9,7 +9,7 @@ import {signup_Validation, login_Validation} from '../VailidationLiginSignup/lig
 
 const router = express.Router();
 
-// login/Signup
+// login/Signup router
 router.post('/post', signup_Validation, loginSignup.signup);
 router.post('/Login', loginSignup.login);
 router.get('/Get/signup/All/user', loginSignup.getAllUsers);
@@ -18,13 +18,13 @@ router.put('/update/login/user/by/email', verifyToken, loginSignup.UpdateLoginDa
 router.delete('/delete/login/user/by/email', verifyToken, loginSignup.DeleteUserData);
 router.post('/logout/Login/data', verifyToken, loginSignup.logout);
 
-// Question
+// Question  router
 router.post('/Create/Questions', question.PutQuestion);
 router.get('/Get/All/Questions', question.getAllQuestions);
 router.get('/Get/Random/Questions', question.getRandomQuestions);
-router.delete('/Delete/Question/name', question.deleteQuestion);
+router.delete('/Delete/Question', question.deleteQuestion);
 
-// Lifeline
+// Lifeline router
 router.post('/Create/LifeLine', verifyToken, lifelines.createLifeline);
 router.get('/GetAll/Lifelines', lifelines.getLifelines);
 router.delete('/delete/Lifeline/by/name', verifyToken, lifelines.deleteLifeline);

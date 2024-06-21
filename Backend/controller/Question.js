@@ -56,17 +56,16 @@ const getRandomQuestions = async (req, res) => {
 
 // Delete question by questio name
 const deleteQuestion = async (req, res) => {
-    const { question } = req.body;
+    const { id } = req.body; // Assuming the frontend sends `id` in the body
     try {
-        const deletedQuestion = await Question.findOneAndDelete({ question });
+        const deletedQuestion = await Question.findByIdAndDelete(id);
         if (!deletedQuestion) {
             return res.status(404).send({ message: 'Question not found' });
         }
         res.status(200).send({ message: 'Question deleted successfully' });
     } catch (error) {
-        console.error('Error deleting Question:', error);
+        console.error('Error deleting question:', error);
         res.status(500).send({ message: 'Server Error' });
     }
 };
-
-export {PutQuestion, getAllQuestions, getRandomQuestions, deleteQuestion}
+export { PutQuestion, getAllQuestions, getRandomQuestions, deleteQuestion }
