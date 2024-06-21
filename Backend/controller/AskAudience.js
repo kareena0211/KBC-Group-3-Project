@@ -14,8 +14,9 @@ const CreateAudienceGraph = async (req, res) => {
 
 const getAllAskAudienceData = async (req, res) => {
     try {
-        const data = await AudienceGraphData.find({}).populate('questionId', 'question options correct category');
-        res.status(200).json(data);
+        const totalQuestions = await AudienceGraphData.countDocuments();
+        const QuestionDetailWithGraph = await AudienceGraphData.find({}).populate('questionId', 'question options correct category');
+        res.status(200).json({totalQuestions, QuestionDetailWithGraph});
     } catch (error) {
         console.error(error.message);
         res.status(500).send('Server Error');
