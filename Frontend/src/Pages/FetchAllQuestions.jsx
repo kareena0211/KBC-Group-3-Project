@@ -1,18 +1,25 @@
 import React, { useState, useEffect } from 'react';
 import axios from 'axios';
 import { FaTrash } from "react-icons/fa";
+import { ToastContainer, toast } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
+import Loader from './Loader'; // Import the Loader component
 
 function FetchAllQuestions() {
   const [questions, setQuestions] = useState([]);
   const [filterInput, setFilterInput] = useState('');
+  const [loading, setLoading] = useState(true); // Add loading state
 
   useEffect(() => {
     const fetchQuestions = async () => {
       try {
         const response = await axios.get('http://localhost:3000/Get/All/Questions');
         setQuestions(response.data);
+        setLoading(false); // Set loading to false once data is fetched
       } catch (error) {
         console.error('Error fetching questions:', error);
+        toast.error('Error fetching questions from Backend');
+        setLoading(false); // Set loading to false even if there is an error
       }
     };
 
@@ -21,12 +28,18 @@ function FetchAllQuestions() {
 
   const handleDeleteQuestion = async (questionId) => {
     try {
-      const response = await axios.delete(`http://localhost:3000/Delete/Question/${questionId}`);
+      const response = await axios.delete('http://localhost:3000/Delete/Question', {
+        data: { id: questionId }
+      });
+
       console.log(response.data.message); // Assuming your backend sends a message upon successful deletion
       // Filter out the deleted question from state
       setQuestions(questions.filter(q => q._id !== questionId));
+      console.log('Updated questions list:', questions);
+      toast.success('Question deleted successfully');
     } catch (error) {
       console.error('Error deleting question:', error);
+      toast.error('Error deleting question');
     }
   };
 
@@ -41,8 +54,13 @@ function FetchAllQuestions() {
     )
     : questions;
 
+  if (loading) {
+    return <Loader />; // Show loader while data is being fetched
+  }
+
   return (
     <div className="container mx-auto p-4">
+      <ToastContainer />
       <h1 className="text-3xl font-bold mb-2 text-center">All Questions</h1>
       <div className='flex items-center justify-between'>
         <p className="text-2xl font-bold mb-3">Total Questions : {displayedQuestions.length}</p>
@@ -53,7 +71,6 @@ function FetchAllQuestions() {
           value={filterInput}
           onChange={handleInputChange}
         />
-
       </div>
       <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
         {displayedQuestions.map((question) => (
