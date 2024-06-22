@@ -3,9 +3,8 @@ import { Register } from '../MongoesSchema/registerSchema.js';
 import { createToken } from '../Midlewere/authentication.js';
 const salt = 10
 
-// Register for new user 
 const signup = async (req, res) => {
-    const { name, email, password, mobile_number, role } = req.body;
+    const { name, email, password, mobile_number, role, adminToken } = req.body;
     try {
         // Check if user already exists
         let user = await Register.findOne({ email });
@@ -13,21 +12,28 @@ const signup = async (req, res) => {
             return res.status(400).json({ message: 'User already exists. Please Login!' });
         }
 
+        // Validate admin token for admin role
+        if (role === 'admin' && adminToken !== 'amit05') {
+            return res.status(401).json({ message: 'Invalid admin token' });
+        }
+
         const salt = await bcrypt.genSalt(10);
         const hashedPassword = await bcrypt.hash(password, salt);
 
         const newUser = new Register({
-            name: name,
-            email: email,
+            name,
+            email,
             password: hashedPassword,
-            mobile_number: mobile_number,
-            role: role
+            mobile_number,
+            role,
+            adminToken,
         });
 
         const result = await newUser.save();
-        res.send({ message: "Signup successful", result: result });
+        res.status(201).json({ message: "Signup successful", result });
     } catch (error) {
-        res.status(500).send('Server Error');
+        console.error('Signup Error:', error);
+        res.status(500).json({ message: 'Server Error' });
     }
 };
 
