@@ -112,18 +112,21 @@ const UpdateLoginData = async (req, res) => {
 
 // Delete an item
 const DeleteUserData = async (req, res) => {
-    const { email } = req.body;
+    const { id } = req.body; // Ensure this matches the data structure sent from React
     try {
-        const deletedItem = await Register.findOne({ email });
+        // Assuming 'Register' is your model or schema
+        const deletedItem = await Register.findOneAndDelete({ _id: id }); // Use _id for MongoDB
+
         if (!deletedItem) {
             return res.status(404).json({ message: 'User data not found.' });
         }
-        const deleteUserData = await Register.findOneAndDelete({ email });
+
         res.json({ message: 'User data deleted.' });
     } catch (error) {
         res.status(500).json({ message: error.message });
     }
 };
+
 
 // Logout function
 const logout = (req, res) => {

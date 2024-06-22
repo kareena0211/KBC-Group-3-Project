@@ -8,6 +8,7 @@ import GameStart from "./Pages/GameStart";
 import About from "./Pages/About";
 import AddQuestionForm from "./Pages/AddQuestionForm";
 import FetchAllQuestions from "./Pages/FetchAllQuestions"
+import FindSignupData from "./Pages/FindSignupData"
 
 function App() {
   const [firstVisit, setFirstVisit] = useState(true);
@@ -30,6 +31,7 @@ function App() {
         <Route path="/about" element={<About />} />
         <Route path="/addquestion" element={<AddQuestionForm />} />
         <Route path="/FetchAllQuestions" element={<FetchAllQuestions />} />
+        <Route path="/FindSignupData" element={<FindSignupData />} />
         <Route path="/Login" element={<Login />} />
         <Route path="/Signup" element={<Signup />} />
         <Route path="/" element={firstVisit ? <Navigate to="/Signup" /> : <GameStart />} />

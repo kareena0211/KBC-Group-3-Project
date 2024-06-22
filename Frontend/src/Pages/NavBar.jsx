@@ -32,7 +32,7 @@ const NavBar = () => {
 
   return (
     <header className={`w-full ${isSticky ? "sticky top-0 bg-slate-400 shadow-md z-10" : "bg-slate-400"}`}>
-      <nav className="container mx-auto px-4 py-2">
+      <nav className="container mx-auto px-0 py-2">
         <div className="flex items-center justify-between">
           <Link to="/GameStart" className="text-white text-2xl font-bold cursor-pointer">
             Online KBC Quiz Game
@@ -72,12 +72,13 @@ const NavBar = () => {
           </div>
 
           {/* Navigation Links for larger screens */}
-          <div className="hidden lg:flex items-center space-x-4 font-bold">
+          <div className="hidden lg:flex items-center font-bold">
             <NavLink to="/GameStart" onClick={closeMenu} active={isMenuOpen}>GameStart</NavLink>
             <NavLink to="/addquestion" onClick={closeMenu} active={isMenuOpen}>Add Questions</NavLink>
             <NavLink to="/FetchAllQuestions" onClick={closeMenu} active={isMenuOpen}>Fetch All Questions</NavLink>
+            <NavLink to="/FindSignupData" onClick={closeMenu} active={isMenuOpen}>Fetch All Signup Data</NavLink>
             <NavLink to="/About" onClick={closeMenu} active={isMenuOpen}>About</NavLink>
-            <NavLink to="/Login" onClick={closeMenu} active={isMenuOpen}>Login</NavLink>
+            {/* <NavLink to="/Login" onClick={closeMenu} active={isMenuOpen}>Login</NavLink> */}
             <NavLink to="/Signup" onClick={closeMenu} active={isMenuOpen}>Signup</NavLink>
           </div>
         </div>
@@ -88,8 +89,9 @@ const NavBar = () => {
             <NavLink to="/GameStart" onClick={closeMenu} active={isMenuOpen}>GameStart</NavLink>
             <NavLink to="/addquestion" onClick={closeMenu} active={isMenuOpen}>Add Questions</NavLink>
             <NavLink to="/FetchAllQuestions" onClick={closeMenu} active={isMenuOpen}>Fetch All Questions</NavLink>
+            <NavLink to="/FindSignupData" onClick={closeMenu} active={isMenuOpen}>Fetch All Signup Data</NavLink>
             <NavLink to="/About" onClick={closeMenu} active={isMenuOpen}>About</NavLink>
-            <NavLink to="/Login" onClick={closeMenu} active={isMenuOpen}>Login</NavLink>
+            {/* <NavLink to="/Login" onClick={closeMenu} active={isMenuOpen}>Login</NavLink> */}
             <NavLink to="/Signup" onClick={closeMenu} active={isMenuOpen}>Signup</NavLink>
           </div>
         )}

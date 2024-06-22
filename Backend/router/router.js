@@ -15,7 +15,7 @@ router.post('/Login', loginSignup.login);
 router.get('/Get/signup/All/user', loginSignup.getAllUsers);
 router.get('/find/Login/user', verifyToken, loginSignup.GetLoginData);
 router.put('/update/login/user/by/email', verifyToken, loginSignup.UpdateLoginData);
-router.delete('/delete/login/user/by/email', verifyToken, loginSignup.DeleteUserData);
+router.delete('/delete/login/user/by/email', loginSignup.DeleteUserData);
 router.post('/logout/Login/data', verifyToken, loginSignup.logout);
 
 // Question  router
