@@ -2,9 +2,9 @@ import { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
 
 const NavBar = () => {
-  const [isMenuOpen, setMenuOpen] = useState(false);
-  const [isSticky, setSticky] = useState(false);
-
+  const [isMenuOpen, setMenuOpen] = useState(false);   //manage the visibility of the mobile menu.
+  const [isSticky, setSticky] = useState(false);    // Set isSticky based on scroll position
+  
   const toggleMenu = () => {
     setMenuOpen(!isMenuOpen);
   };

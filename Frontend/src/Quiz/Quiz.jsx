@@ -4,7 +4,7 @@ import Timer from "../Timer/Timer";
 import Lifelines from "../LifeLine/Lifelines";
 
 function Quiz({ questions }) {
-  const [currentQuestion, setCurrentQuestion] = useState(0);
+  const [currentQuestion, setCurrentQuestion] = useState(0); // index of the current question being displayed.
   const [amount, setAmount] = useState(0);
   const [timer, setTimer] = useState(30);
   const [gameOver, setGameOver] = useState(false);
@@ -46,7 +46,7 @@ function Quiz({ questions }) {
 
   return (
     <div className="rounded-lg w-11/12 h-5/6 m-0 flex flex-col items-center justify-center">
-        {!gameOver && (
+      {!gameOver && (
         <div>
           <Lifelines />
           <Timer timer={timer} />
@@ -58,18 +58,18 @@ function Quiz({ questions }) {
           onNextQuestion={handleNextQuestion}
           setPauseTimer={setPauseTimer}
         />
-
       ) : (
         <div className="text-center mb-3 ml-7 text-3xl text-black bg-white p-4 rounded-lg shadow-lg w-full max-w-xl">
           <h2>Game Over</h2>
-          {showFinalScore && (
-            <p>Final Amount: ₹ {amount}</p>
-          )}
+          {showFinalScore && <p>Final Amount: ₹ {amount}</p>}
         </div>
       )}
       {(!gameOver || showFinalScore) && (
         <span className="p-1 text-xl font-bold text-black bg-blue-400 rounded ml-8 mb-3">
-          <span>Every Question Amount( Per Q./1000 ) = ( {currentQuestion}*1000 ): ₹ {amount} Win</span>
+          <span>
+            Every Question Amount( Per Q./1000 ) = ( {currentQuestion}*1000 ): ₹{" "}
+            {amount} Win
+          </span>
         </span>
       )}
     </div>

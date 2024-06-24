@@ -16,7 +16,7 @@ function Lifelines() {
           "http://localhost:3000/GetAll/Lifelines"
         );
         setLifelines(response.data.lifelines);
-        console.log("*******", response.data.lifelines); 
+        console.log("*******", response.data.lifelines);
         // Assuming the data structure is { lifelines: [...] }
       } catch (error) {
         console.error("Failed to fetch lifelines:", error);

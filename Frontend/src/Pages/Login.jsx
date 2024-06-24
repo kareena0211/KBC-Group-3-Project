@@ -17,9 +17,9 @@ const Login = () => {
 
   const validateForm = () => {
     const errors = {};
-    if (!formData.email.trim()) {
+    if (!formData.email.trim()) {   // checking if email field is empty
       errors.email = "Email is required";
-    } else if (!/^\S+@\S+\.\S+$/.test(formData.email)) {
+    } else if (!/^\S+@\S+\.\S+$/.test(formData.email)) {   // checking if meeting with right email structure 
       errors.email = "Invalid email format";
     }
     if (!formData.password.trim()) {

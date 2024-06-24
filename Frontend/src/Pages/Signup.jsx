@@ -1,8 +1,8 @@
 import React, { useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
-import axios from "axios";
-import { ToastContainer, toast } from 'react-toastify';
-import 'react-toastify/dist/ReactToastify.css';
+import axios from "axios"; // for HTTP request
+import { ToastContainer, toast } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css"; //notifiaction
 
 const Signup = () => {
   const navigate = useNavigate(); // useNavigate for React Router v6
@@ -15,7 +15,7 @@ const Signup = () => {
     role: "user",
   });
   const [errors, setErrors] = useState({});
-  const [showPassword, setShowPassword] = useState(false);
+  const [showPassword, setShowPassword] = useState(false);  //for password visibility
 
   const validateForm = () => {
     const errors = {};
@@ -42,7 +42,8 @@ const Signup = () => {
     if (!formData.mobileNumber.trim()) {
       errors.mobileNumber = "Mobile number is required";
     } else if (!/^\d{10}$/.test(formData.mobileNumber)) {
-      errors.mobileNumber = "Invalid mobile number format (should be 10 digits)";
+      errors.mobileNumber =
+        "Invalid mobile number format (should be 10 digits)";
     }
     if (!formData.role) {
       errors.role = "Role is required";
@@ -56,7 +57,12 @@ const Signup = () => {
 
   const handleInputChange = (e) => {
     const { name, value, type, checked } = e.target;
-    const inputValue = type === "checkbox" ? checked : type === "tel" ? value.replace(/\D/, '') : value;
+    const inputValue =
+      type === "checkbox"
+        ? checked
+        : type === "tel"
+        ? value.replace(/\D/, "")
+        : value;
     setFormData({ ...formData, [name]: inputValue });
   };
 
@@ -93,11 +99,11 @@ const Signup = () => {
   };
 
   const toggleShowPassword = () => {
-    setShowPassword(!showPassword);
+    setShowPassword(!showPassword);  //Password Visibility Toggle
   };
 
   return (
-    <div className="flex justify-center items-center p-6 bg-slate-300 min-h-screen mt-10">
+    <div className="flex justify-center items-center p-6 bg-slate-300 min-h-screen">
       <div className="container max-w-md mx-auto p-8 shadow-lg rounded-lg bg-white">
         <h1 className="text-3xl font-bold text-center mb-6 text-gray-800">
           Register
