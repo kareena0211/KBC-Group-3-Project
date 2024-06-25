@@ -1,9 +1,11 @@
-import { useEffect, useState } from "react";
-import { Link } from "react-router-dom";
+import React, { useEffect, useState } from "react";
+import { Link, useNavigate, useLocation } from "react-router-dom";
 
-const NavBar = () => {
+const NavBar = ({ userRole, setUserRole }) => {
   const [isMenuOpen, setMenuOpen] = useState(false);
   const [isSticky, setSticky] = useState(false);
+  const navigate = useNavigate();
+  const location = useLocation();
 
   const toggleMenu = () => {
     setMenuOpen(!isMenuOpen);
@@ -11,7 +13,6 @@ const NavBar = () => {
 
   useEffect(() => {
     const handleScroll = () => {
-      // Set isSticky based on scroll position
       if (window.scrollY > 0) {
         setSticky(true);
       } else {
@@ -24,75 +25,85 @@ const NavBar = () => {
     return () => {
       window.removeEventListener("scroll", handleScroll);
     };
-  }, []); // Empty dependency array ensures useEffect runs only once
+  }, []);
 
   const closeMenu = () => {
     setMenuOpen(false);
   };
 
+  const handleLogout = () => {
+    localStorage.removeItem("userData");
+    localStorage.removeItem("token");
+    setUserRole("");
+    navigate("/Signup");
+  };
+
+  const isDashboardPage = location.pathname === "/UserDashboard" || location.pathname === "/AdminDashboard";
+
   return (
     <header className={`w-full ${isSticky ? "sticky top-0 bg-slate-400 shadow-md z-10" : "bg-slate-400"}`}>
       <nav className="container mx-auto px-0 py-2">
         <div className="flex items-center justify-between">
-          <Link to="/GameStart" className="text-white text-2xl font-bold cursor-pointer">
+          <Link to={userRole === "admin" ? "/AdminDashboard" : "/UserDashboard"} className="text-white text-2xl font-bold cursor-pointer">
             Online KBC Quiz Game
           </Link>
 
-          {/* Hamburger Icon for mobile */}
           <div className="block lg:hidden">
-            <button
-              onClick={toggleMenu}
-              className="text-white focus:outline-none"
-              aria-label="Toggle Menu"
-            >
-              <svg
-                className="w-6 h-6"
-                fill="none"
-                stroke="currentColor"
-                viewBox="0 0 24 24"
-                xmlns="http://www.w3.org/2000/svg"
-              >
+            <button onClick={toggleMenu} className="text-white focus:outline-none" aria-label="Toggle Menu">
+              <svg className="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
                 {isMenuOpen ? (
-                  <path
-                    strokeLinecap="round"
-                    strokeLinejoin="round"
-                    strokeWidth="2"
-                    d="M6 18L18 6M6 6l12 12"
-                  />
+                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M6 18L18 6M6 6l12 12" />
                 ) : (
-                  <path
-                    strokeLinecap="round"
-                    strokeLinejoin="round"
-                    strokeWidth="2"
-                    d="M4 6h16M4 12h16M4 18h16"
-                  />
+                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M4 6h16M4 12h16M4 18h16" />
                 )}
               </svg>
             </button>
           </div>
 
-          {/* Navigation Links for larger screens */}
           <div className="hidden lg:flex items-center font-bold">
-            <NavLink to="/GameStart" onClick={closeMenu} active={isMenuOpen}>GameStart</NavLink>
-            <NavLink to="/addquestion" onClick={closeMenu} active={isMenuOpen}>Add Questions</NavLink>
-            <NavLink to="/FetchAllQuestions" onClick={closeMenu} active={isMenuOpen}>Fetch All Questions</NavLink>
-            <NavLink to="/FindSignupData" onClick={closeMenu} active={isMenuOpen}>Fetch All Signup Data</NavLink>
-            <NavLink to="/About" onClick={closeMenu} active={isMenuOpen}>About</NavLink>
-            {/* <NavLink to="/Login" onClick={closeMenu} active={isMenuOpen}>Login</NavLink> */}
-            <NavLink to="/Signup" onClick={closeMenu} active={isMenuOpen}>Signup</NavLink>
+            {userRole === "user" && (
+              <>
+                <NavLink to="/UserDashboard" onClick={closeMenu}>UserDashboard</NavLink>
+                <NavLink to="/GameStart" onClick={closeMenu}>GameStart</NavLink>
+                <NavLink to="/About" onClick={closeMenu}>About</NavLink>
+                {isDashboardPage && <button onClick={handleLogout} className="block mt-4 lg:inline-block lg:mt-0 text-white mr-8">Logout</button>}
+              </>
+            )}
+            {userRole === "admin" && (
+              <>
+                <NavLink to="/AdminDashboard" onClick={closeMenu}>AdminDashboard</NavLink>
+                <NavLink to="/GameStart" onClick={closeMenu}>GameStart</NavLink>
+                <NavLink to="/About" onClick={closeMenu}>About</NavLink>
+                <NavLink to="/AddQuestion" onClick={closeMenu}>Add Questions</NavLink>
+                <NavLink to="/FetchAllQuestions" onClick={closeMenu}>Fetch All Questions</NavLink>
+                <NavLink to="/FindSignupData" onClick={closeMenu}>Fetch All Signup Data</NavLink>
+                {isDashboardPage && <button onClick={handleLogout} className="block mt-4 lg:inline-block lg:mt-0 text-white mr-8">Logout</button>}
+              </>
+            )}
+            {/* {isDashboardPage && <button onClick={handleLogout} className="block mt-4 lg:inline-block lg:mt-0 text-white mr-8">Logout</button>} */}
           </div>
         </div>
 
-        {/* Navigation Links for mobile */}
         {isMenuOpen && (
-          <div className="lg:hidden mt-4 bg-slate-400 text-white">
-            <NavLink to="/GameStart" onClick={closeMenu} active={isMenuOpen}>GameStart</NavLink>
-            <NavLink to="/addquestion" onClick={closeMenu} active={isMenuOpen}>Add Questions</NavLink>
-            <NavLink to="/FetchAllQuestions" onClick={closeMenu} active={isMenuOpen}>Fetch All Questions</NavLink>
-            <NavLink to="/FindSignupData" onClick={closeMenu} active={isMenuOpen}>Fetch All Signup Data</NavLink>
-            <NavLink to="/About" onClick={closeMenu} active={isMenuOpen}>About</NavLink>
-            {/* <NavLink to="/Login" onClick={closeMenu} active={isMenuOpen}>Login</NavLink> */}
-            <NavLink to="/Signup" onClick={closeMenu} active={isMenuOpen}>Signup</NavLink>
+          <div className="lg:hidden mt-2">
+            {userRole === "user" && (
+              <>
+                <NavLink to="/UserDashboard" onClick={closeMenu}>UserDashboard</NavLink>
+                <NavLink to="/GameStart" onClick={closeMenu}>GameStart</NavLink>
+                <NavLink to="/About" onClick={closeMenu}>About</NavLink>
+              </>
+            )}
+            {userRole === "admin" && (
+              <>
+                <NavLink to="/AdminDashboard" onClick={closeMenu}>AdminDashboard</NavLink>
+                <NavLink to="/GameStart" onClick={closeMenu}>GameStart</NavLink>
+                <NavLink to="/About" onClick={closeMenu}>About</NavLink>
+                <NavLink to="/AddQuestion" onClick={closeMenu}>Add Questions</NavLink>
+                <NavLink to="/FetchAllQuestions" onClick={closeMenu}>Fetch All Questions</NavLink>
+                <NavLink to="/FindSignupData" onClick={closeMenu}>Fetch All Signup Data</NavLink>
+              </>
+            )}
+            {/* {isDashboardPage && <button onClick={handleLogout} className="block mt-4 lg:inline-block lg:mt-0 text-white mr-8">Logout</button>} */}
           </div>
         )}
       </nav>
@@ -100,19 +111,10 @@ const NavBar = () => {
   );
 };
 
-// Custom NavLink component
-const NavLink = ({ to, onClick, active, children }) => {
-  return (
-    <Link
-      to={to}
-      onClick={onClick}
-      className={`block py-2 px-4 text-white rounded-md ${
-        active ? "bg-gray-700" : "hover:bg-gray-700"
-      }`}
-    >
-      {children}
-    </Link>
-  );
-};
+const NavLink = ({ to, children, onClick }) => (
+  <Link to={to} onClick={onClick} className="block mt-4 lg:inline-block lg:mt-0 text-white mr-8">
+    {children}
+  </Link>
+);
 
 export default NavBar;

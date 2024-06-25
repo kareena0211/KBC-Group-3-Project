@@ -48,8 +48,22 @@ const Login = () => {
         toast.success("Login successful!");
         setSuccessMessage("Login successful!");
 
-        // Navigate to Home page after login
-        navigate("/GameStart");
+        if (response.status === 200) {
+          const data = response.data;
+          localStorage.setItem("token", data.token);
+          localStorage.setItem("userData", JSON.stringify(data.user));
+
+          if (data.user.role === "admin") {
+            navigate("/AdminDashboard");
+          } else {
+            navigate("/UserDashboard");
+          }
+        } else {
+          console.error("Login failed");
+          toast.error("Login failed. Please try again.");
+          setErrorMessage("Login failed. Please try again.");
+        }
+
         setFormData({
           email: "",
           password: "",
