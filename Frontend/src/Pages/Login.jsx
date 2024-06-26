@@ -1,19 +1,31 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import axios from "axios";
 import { toast, ToastContainer } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 
 const Login = () => {
-  const navigate = useNavigate(); // useNavigate for React Router v6
+  const navigate = useNavigate();
   const [formData, setFormData] = useState({
     email: "",
     password: "",
   });
   const [errors, setErrors] = useState({});
-  const [successMessage, setSuccessMessage] = useState("");
   const [errorMessage, setErrorMessage] = useState("");
   const [showPassword, setShowPassword] = useState(false);
+
+  useEffect(() => {
+    // Check if user is already authenticated
+    const token = localStorage.getItem("token");
+    if (token) {
+      const userData = JSON.parse(localStorage.getItem("userData"));
+      if (userData.role === "admin") {
+        navigate("/AdminDashboard");
+      } else {
+        navigate("/UserDashboard");
+      }
+    }
+  }, [navigate]);
 
   const validateForm = () => {
     const errors = {};
@@ -43,10 +55,6 @@ const Login = () => {
           email: formData.email,
           password: formData.password,
         });
-
-        console.log("Login successful:", response.data);
-        toast.success("Login successful!");
-        setSuccessMessage("Login successful!");
 
         if (response.status === 200) {
           const data = response.data;

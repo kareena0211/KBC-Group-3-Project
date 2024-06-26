@@ -13,11 +13,7 @@ const NavBar = ({ userRole, setUserRole }) => {
 
   useEffect(() => {
     const handleScroll = () => {
-      if (window.scrollY > 0) {
-        setSticky(true);
-      } else {
-        setSticky(false);
-      }
+      setSticky(window.scrollY > 0);
     };
 
     window.addEventListener("scroll", handleScroll);
@@ -63,24 +59,24 @@ const NavBar = ({ userRole, setUserRole }) => {
           <div className="hidden lg:flex items-center font-bold">
             {userRole === "user" && (
               <>
-                <NavLink to="/UserDashboard" onClick={closeMenu}>UserDashboard</NavLink>
-                <NavLink to="/GameStart" onClick={closeMenu}>GameStart</NavLink>
-                <NavLink to="/About" onClick={closeMenu}>About</NavLink>
-                {isDashboardPage && <button onClick={handleLogout} className="block mt-4 lg:inline-block lg:mt-0 text-white mr-8">Logout</button>}
+                <NavLink to="/UserDashboard" onClick={closeMenu} active={location.pathname === "/UserDashboard"}>UserDashboard</NavLink>
+                <NavLink to="/GameStart" onClick={closeMenu} active={location.pathname === "/GameStart"}>GameStart</NavLink>
+                <NavLink to="/About" onClick={closeMenu} active={location.pathname === "/About"}>About</NavLink>
               </>
             )}
             {userRole === "admin" && (
               <>
-                <NavLink to="/AdminDashboard" onClick={closeMenu}>AdminDashboard</NavLink>
-                <NavLink to="/GameStart" onClick={closeMenu}>GameStart</NavLink>
-                <NavLink to="/About" onClick={closeMenu}>About</NavLink>
-                <NavLink to="/AddQuestion" onClick={closeMenu}>Add Questions</NavLink>
-                <NavLink to="/FetchAllQuestions" onClick={closeMenu}>Fetch All Questions</NavLink>
-                <NavLink to="/FindSignupData" onClick={closeMenu}>Fetch All Signup Data</NavLink>
-                {isDashboardPage && <button onClick={handleLogout} className="block mt-4 lg:inline-block lg:mt-0 text-white mr-8">Logout</button>}
+                <NavLink to="/AdminDashboard" onClick={closeMenu} active={location.pathname === "/AdminDashboard"}>AdminDashboard</NavLink>
+                <NavLink to="/GameStart" onClick={closeMenu} active={location.pathname === "/GameStart"}>GameStart</NavLink>
+                <NavLink to="/About" onClick={closeMenu} active={location.pathname === "/About"}>About</NavLink>
+                <NavLink to="/AddQuestion" onClick={closeMenu} active={location.pathname === "/AddQuestion"}>Add Questions</NavLink>
+                <NavLink to="/FetchAllQuestions" onClick={closeMenu} active={location.pathname === "/FetchAllQuestions"}>Fetch All Questions</NavLink>
+                <NavLink to="/FindSignupData" onClick={closeMenu} active={location.pathname === "/FindSignupData"}>Fetch All Signup Data</NavLink>
               </>
             )}
-            {/* {isDashboardPage && <button onClick={handleLogout} className="block mt-4 lg:inline-block lg:mt-0 text-white mr-8">Logout</button>} */}
+            {isDashboardPage && (
+              <button onClick={handleLogout} className="block mt-4 lg:inline-block lg:mt-0 text-white mr-8">Logout</button>
+            )}
           </div>
         </div>
 
@@ -88,22 +84,24 @@ const NavBar = ({ userRole, setUserRole }) => {
           <div className="lg:hidden mt-2">
             {userRole === "user" && (
               <>
-                <NavLink to="/UserDashboard" onClick={closeMenu}>UserDashboard</NavLink>
-                <NavLink to="/GameStart" onClick={closeMenu}>GameStart</NavLink>
-                <NavLink to="/About" onClick={closeMenu}>About</NavLink>
+                <NavLink to="/UserDashboard" onClick={closeMenu} active={location.pathname === "/UserDashboard"}>UserDashboard</NavLink>
+                <NavLink to="/GameStart" onClick={closeMenu} active={location.pathname === "/GameStart"}>GameStart</NavLink>
+                <NavLink to="/About" onClick={closeMenu} active={location.pathname === "/About"}>About</NavLink>
               </>
             )}
             {userRole === "admin" && (
               <>
-                <NavLink to="/AdminDashboard" onClick={closeMenu}>AdminDashboard</NavLink>
-                <NavLink to="/GameStart" onClick={closeMenu}>GameStart</NavLink>
-                <NavLink to="/About" onClick={closeMenu}>About</NavLink>
-                <NavLink to="/AddQuestion" onClick={closeMenu}>Add Questions</NavLink>
-                <NavLink to="/FetchAllQuestions" onClick={closeMenu}>Fetch All Questions</NavLink>
-                <NavLink to="/FindSignupData" onClick={closeMenu}>Fetch All Signup Data</NavLink>
+                <NavLink to="/AdminDashboard" onClick={closeMenu} active={location.pathname === "/AdminDashboard"}>AdminDashboard</NavLink>
+                <NavLink to="/GameStart" onClick={closeMenu} active={location.pathname === "/GameStart"}>GameStart</NavLink>
+                <NavLink to="/About" onClick={closeMenu} active={location.pathname === "/About"}>About</NavLink>
+                <NavLink to="/AddQuestion" onClick={closeMenu} active={location.pathname === "/AddQuestion"}>Add Questions</NavLink>
+                <NavLink to="/FetchAllQuestions" onClick={closeMenu} active={location.pathname === "/FetchAllQuestions"}>Fetch All Questions</NavLink>
+                <NavLink to="/FindSignupData" onClick={closeMenu} active={location.pathname === "/FindSignupData"}>Fetch All Signup Data</NavLink>
               </>
             )}
-            {/* {isDashboardPage && <button onClick={handleLogout} className="block mt-4 lg:inline-block lg:mt-0 text-white mr-8">Logout</button>} */}
+            {isDashboardPage && (
+              <button onClick={handleLogout} className="block mt-4 lg:inline-block lg:mt-0 text-white mr-8">Logout</button>
+            )}
           </div>
         )}
       </nav>
@@ -111,10 +109,16 @@ const NavBar = ({ userRole, setUserRole }) => {
   );
 };
 
-const NavLink = ({ to, children, onClick }) => (
-  <Link to={to} onClick={onClick} className="block mt-4 lg:inline-block lg:mt-0 text-white mr-8">
-    {children}
-  </Link>
-);
+const NavLink = ({ to, onClick, active, children }) => {
+  return (
+    <Link
+      to={to}
+      onClick={onClick}
+      className={`block py-2 px-2 text-white rounded-md ${active ? "bg-gray-500" : "hover:bg-gray-700"}`}
+    >
+      {children}
+    </Link>
+  );
+};
 
 export default NavBar;
