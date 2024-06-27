@@ -61,7 +61,7 @@ const NavBar = ({ userRole, setUserRole }) => {
               <>
                 <NavLink to="/UserDashboard" onClick={closeMenu} active={location.pathname === "/UserDashboard"}>UserDashboard</NavLink>
                 <NavLink to="/GameStart" onClick={closeMenu} active={location.pathname === "/GameStart"}>GameStart</NavLink>
-                <NavLink to="/About" onClick={closeMenu} active={location.pathname === "/About"}>About</NavLink>
+                {/* <NavLink to="/About" onClick={closeMenu} active={location.pathname === "/About"}>About</NavLink> */}
               </>
             )}
             {userRole === "admin" && (
@@ -70,8 +70,8 @@ const NavBar = ({ userRole, setUserRole }) => {
                 <NavLink to="/GameStart" onClick={closeMenu} active={location.pathname === "/GameStart"}>GameStart</NavLink>
                 <NavLink to="/About" onClick={closeMenu} active={location.pathname === "/About"}>About</NavLink>
                 <NavLink to="/AddQuestion" onClick={closeMenu} active={location.pathname === "/AddQuestion"}>Add Questions</NavLink>
-                <NavLink to="/FetchAllQuestions" onClick={closeMenu} active={location.pathname === "/FetchAllQuestions"}>Fetch All Questions</NavLink>
-                <NavLink to="/FindSignupData" onClick={closeMenu} active={location.pathname === "/FindSignupData"}>Fetch All Signup Data</NavLink>
+                <NavLink to="/FetchAllQuestions" onClick={closeMenu} active={location.pathname === "/FetchAllQuestions"}>Show All Questions</NavLink>
+                <NavLink to="/FindSignupData" onClick={closeMenu} active={location.pathname === "/FindSignupData"}>Show All Signup Data</NavLink>
               </>
             )}
             {isDashboardPage && (
@@ -94,8 +94,8 @@ const NavBar = ({ userRole, setUserRole }) => {
                 <NavLink to="/GameStart" onClick={closeMenu} active={location.pathname === "/GameStart"}>GameStart</NavLink>
                 <NavLink to="/About" onClick={closeMenu} active={location.pathname === "/About"}>About</NavLink>
                 <NavLink to="/AddQuestion" onClick={closeMenu} active={location.pathname === "/AddQuestion"}>Add Questions</NavLink>
-                <NavLink to="/FetchAllQuestions" onClick={closeMenu} active={location.pathname === "/FetchAllQuestions"}>Fetch All Questions</NavLink>
-                <NavLink to="/FindSignupData" onClick={closeMenu} active={location.pathname === "/FindSignupData"}>Fetch All Signup Data</NavLink>
+                <NavLink to="/FetchAllQuestions" onClick={closeMenu} active={location.pathname === "/FetchAllQuestions"}>Show All Questions</NavLink>
+                <NavLink to="/FindSignupData" onClick={closeMenu} active={location.pathname === "/FindSignupData"}>Show All Signup Data</NavLink>
               </>
             )}
             {isDashboardPage && (

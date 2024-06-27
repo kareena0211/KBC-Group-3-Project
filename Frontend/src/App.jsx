@@ -48,7 +48,7 @@ function App() {
             {userRole === "user" ? (
               <>
                 <Route path="/GameStart" element={<PrivateRoute element={<GameStart />} />} />
-                <Route path="/About" element={<PrivateRoute element={<About />} />} />
+                {/* <Route path="/About" element={<PrivateRoute element={<About />} />} /> */}
                 <Route path="/UserDashboard" element={<PrivateRoute element={<UserDashboard />} />} />
                 {/* <Route path="/" element={<Navigate to="/UserDashboard" />} /> */}
               </>
