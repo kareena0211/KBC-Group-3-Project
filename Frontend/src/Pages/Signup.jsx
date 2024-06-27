@@ -5,14 +5,15 @@ import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 
 const Signup = () => {
-  const navigate = useNavigate(); // useNavigate for React Router v6
+  const navigate = useNavigate();
   const [formData, setFormData] = useState({
     name: "",
     email: "",
     password: "",
-    mobileNumber: "",
+    mobile_number: "",
     terms: false,
     role: "user",
+    adminToken: ""
   });
   const [errors, setErrors] = useState({});
   const [showPassword, setShowPassword] = useState(false);
@@ -39,13 +40,16 @@ const Signup = () => {
       errors.password =
         "Password must contain at least one uppercase letter, one lowercase letter, one digit, and one special character";
     }
-    if (!formData.mobileNumber.trim()) {
-      errors.mobileNumber = "Mobile number is required";
-    } else if (!/^\d{10}$/.test(formData.mobileNumber)) {
-      errors.mobileNumber = "Invalid mobile number format (should be 10 digits)";
+    if (!formData.mobile_number.trim()) {
+      errors.mobile_number = "Mobile number is required";
+    } else if (!/^\d{10}$/.test(formData.mobile_number)) {
+      errors.mobile_number = "Invalid mobile number format (should be 10 digits)";
     }
     if (!formData.role) {
       errors.role = "Role is required";
+    }
+    if (formData.role === 'admin' && !formData.adminToken) {
+      errors.adminToken = "Admin token is required";
     }
     if (!formData.terms) {
       errors.terms = "Please agree to the terms and conditions";
@@ -68,22 +72,23 @@ const Signup = () => {
           name: formData.name,
           email: formData.email,
           password: formData.password,
-          mobile_number: formData.mobileNumber,
+          mobile_number: formData.mobile_number,
           role: formData.role,
+          adminToken: formData.role === 'admin' ? formData.adminToken : undefined
         });
 
         console.log("Signup Successful:", response.data);
         toast.success("Signup successful!");
 
-        // Navigate to login page after signup
         navigate("/login");
         setFormData({
           name: "",
           email: "",
           password: "",
-          mobileNumber: "",
+          mobile_number: "",
           terms: false,
           role: "user",
+          adminToken: ""
         });
       } catch (error) {
         console.error("Signup Error:", error);
@@ -109,7 +114,8 @@ const Signup = () => {
               name="name"
               value={formData.name}
               onChange={handleInputChange}
-              placeholder="Name"
+              placeholder="Full Name"
+              autoComplete="off"
               className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-indigo-400"
             />
             {errors.name && (
@@ -151,15 +157,15 @@ const Signup = () => {
           <div className="mb-2">
             <input
               type="tel"
-              name="mobileNumber"
-              value={formData.mobileNumber}
+              name="mobile_number"
+              value={formData.mobile_number}
               onChange={handleInputChange}
               placeholder="Mobile Number"
               className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-indigo-400"
             />
-            {errors.mobileNumber && (
+            {errors.mobile_number && (
               <div className="text-red-500 text-sm mt-1">
-                {errors.mobileNumber}
+                {errors.mobile_number}
               </div>
             )}
           </div>
@@ -180,6 +186,22 @@ const Signup = () => {
               <div className="text-red-500 text-sm mt-1">{errors.role}</div>
             )}
           </div>
+          {formData.role === 'admin' && (
+            <div className="mb-2">
+              <input
+                type="text"
+                name="adminToken"
+                value={formData.adminToken}
+                onChange={handleInputChange}
+                placeholder="Admin Token"
+                autoComplete="off"
+                className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-indigo-400"
+              />
+              {errors.adminToken && (
+                <div className="text-red-500 text-sm mt-1">{errors.adminToken}</div>
+              )}
+            </div>
+          )}
           <div className="mb-2 flex items-center">
             <input
               type="checkbox"
@@ -202,7 +224,7 @@ const Signup = () => {
           >
             Signup
           </button>
-          <p>
+          <p className="mt-4 text-center">
             Already have an account?{" "}
             <Link to="/login" className="text-blue-700 underline font-semibold">
               Login

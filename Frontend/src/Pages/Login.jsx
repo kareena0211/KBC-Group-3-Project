@@ -1,19 +1,32 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import axios from "axios";
 import { toast, ToastContainer } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 
-const Login = () => {
-  const navigate = useNavigate(); // useNavigate for React Router v6
+const Login = ({ setUserRole }) => {
+  const navigate = useNavigate();
   const [formData, setFormData] = useState({
     email: "",
     password: "",
   });
   const [errors, setErrors] = useState({});
-  const [successMessage, setSuccessMessage] = useState("");
   const [errorMessage, setErrorMessage] = useState("");
   const [showPassword, setShowPassword] = useState(false);
+
+  useEffect(() => {
+    // Check if user is already authenticated
+    const token = localStorage.getItem("token");
+    if (token) {
+      const userData = JSON.parse(localStorage.getItem("userData"));
+      setUserRole(userData.role);
+      if (userData.role === "admin") {
+        navigate("/AdminDashboard");
+      } else {
+        navigate("/UserDashboard");
+      }
+    }
+  }, [navigate, setUserRole]);
 
   const validateForm = () => {
     const errors = {};
@@ -44,12 +57,23 @@ const Login = () => {
           password: formData.password,
         });
 
-        console.log("Login successful:", response.data);
-        toast.success("Login successful!");
-        setSuccessMessage("Login successful!");
+        if (response.status === 200) {
+          const data = response.data;
+          localStorage.setItem("token", data.token);
+          localStorage.setItem("userData", JSON.stringify(data.user));
+          setUserRole(data.user.role);
 
-        // Navigate to Home page after login
-        navigate("/GameStart");
+          if (data.user.role === "admin") {
+            navigate("/AdminDashboard");
+          } else {
+            navigate("/UserDashboard");
+          }
+        } else {
+          console.error("Login failed");
+          toast.error("Login failed. Please try again.");
+          setErrorMessage("Login failed. Please try again.");
+        }
+
         setFormData({
           email: "",
           password: "",

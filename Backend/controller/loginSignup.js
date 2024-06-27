@@ -3,9 +3,8 @@ import { Register } from '../MongoesSchema/registerSchema.js';
 import { createToken } from '../Midlewere/authentication.js';
 const salt = 10
 
-// Register for new user 
 const signup = async (req, res) => {
-    const { name, email, password, mobile_number, role } = req.body;
+    const { name, email, password, mobile_number, role, adminToken } = req.body;
     try {
         // Check if user already exists
         let user = await Register.findOne({ email });
@@ -13,21 +12,28 @@ const signup = async (req, res) => {
             return res.status(400).json({ message: 'User already exists. Please Login!' });
         }
 
+        // Validate admin token for admin role
+        if (role === 'admin' && adminToken !== 'AmitYadav222137') {
+            return res.status(401).json({ message: 'Invalid admin token' });
+        }
+
         const salt = await bcrypt.genSalt(10);
         const hashedPassword = await bcrypt.hash(password, salt);
 
         const newUser = new Register({
-            name: name,
-            email: email,
+            name,
+            email,
             password: hashedPassword,
-            mobile_number: mobile_number,
-            role: role
+            mobile_number,
+            role,
+            adminToken,
         });
 
         const result = await newUser.save();
-        res.send({ message: "Signup successful", result: result });
+        res.status(201).json({ message: "Signup successful", result });
     } catch (error) {
-        res.status(500).send('Server Error');
+        console.error('Signup Error:', error);
+        res.status(500).json({ message: 'Server Error' });
     }
 };
 
@@ -106,18 +112,21 @@ const UpdateLoginData = async (req, res) => {
 
 // Delete an item
 const DeleteUserData = async (req, res) => {
-    const { email } = req.body;
+    const { id } = req.body; // Ensure this matches the data structure sent from React
     try {
-        const deletedItem = await Register.findOne({ email });
+        // Assuming 'Register' is your model or schema
+        const deletedItem = await Register.findOneAndDelete({ _id: id }); // Use _id for MongoDB
+
         if (!deletedItem) {
             return res.status(404).json({ message: 'User data not found.' });
         }
-        const deleteUserData = await Register.findOneAndDelete({ email });
+
         res.json({ message: 'User data deleted.' });
     } catch (error) {
         res.status(500).json({ message: error.message });
     }
 };
+
 
 // Logout function
 const logout = (req, res) => {

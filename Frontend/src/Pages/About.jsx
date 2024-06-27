@@ -4,7 +4,7 @@ import {FaUserAlt, FaGamepad, FaQuestionCircle, FaLifeRing,} from "react-icons/f
 const About = () => {
   return (
     <div className="bg-gray-100 min-h-screen flex flex-col items-center justify-center p-5">
-      <div className="max-w-4xl bg-white shadow-lg rounded-lg p-8">
+      <div className="max-w-8xl bg-white shadow-lg rounded-lg p-8">
         <div className="flex items-center justify-between">
           <h1 className="text-4xl font-bold text-gray-800 mb-1">
             About KBC Game
@@ -26,7 +26,8 @@ const About = () => {
             </h2>
             <ul className="list-disc list-inside text-gray-600">
               <li>Register an account and play</li>
-              <li>Play without login</li>
+              <li>If user not create register acoount . User can not play KBC game .</li>
+              <li>Play with login</li>
             </ul>
           </div>
           <div className="md:w-1/2 p-4">
@@ -35,7 +36,7 @@ const About = () => {
             </h2>
             <ul className="list-disc list-inside text-gray-600">
               <li>50-50: Two incorrect options will be disabled</li>
-              <li>Phone a Friend: Join a Google Meet call</li>
+              <li>Ask The Audience</li>
               <li>Switch a Question: Skip the current question</li>
             </ul>
           </div>
