@@ -194,6 +194,7 @@ const Signup = () => {
                 value={formData.adminToken}
                 onChange={handleInputChange}
                 placeholder="Admin Token"
+                autoComplete="off"
                 className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-indigo-400"
               />
               {errors.adminToken && (

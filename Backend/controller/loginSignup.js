@@ -13,7 +13,7 @@ const signup = async (req, res) => {
         }
 
         // Validate admin token for admin role
-        if (role === 'admin' && adminToken !== 'amit05') {
+        if (role === 'admin' && adminToken !== 'AmitYadav222137') {
             return res.status(401).json({ message: 'Invalid admin token' });
         }
 
