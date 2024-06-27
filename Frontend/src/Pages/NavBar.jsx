@@ -40,12 +40,12 @@ const NavBar = ({ userRole, setUserRole }) => {
     <header className={`w-full ${isSticky ? "sticky top-0 bg-slate-400 shadow-md z-10" : "bg-slate-400"}`}>
       <nav className="container mx-auto px-0 py-2">
         <div className="flex items-center justify-between">
-          <Link to={userRole === "admin" ? "/AdminDashboard" : "/UserDashboard"} className="text-white text-2xl font-bold cursor-pointer">
+          <Link to={userRole === "admin" ? "/AdminDashboard" : "/UserDashboard"} className="text-white text-2xl font-bold cursor-pointer ml-5">
             Online KBC Quiz Game
           </Link>
 
           <div className="block lg:hidden">
-            <button onClick={toggleMenu} className="text-white focus:outline-none" aria-label="Toggle Menu">
+            <button onClick={toggleMenu} className="text-white focus:outline-none mr-3" aria-label="Toggle Menu">
               <svg className="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
                 {isMenuOpen ? (
                   <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M6 18L18 6M6 6l12 12" />
@@ -68,7 +68,7 @@ const NavBar = ({ userRole, setUserRole }) => {
               <>
                 <NavLink to="/AdminDashboard" onClick={closeMenu} active={location.pathname === "/AdminDashboard"}>AdminDashboard</NavLink>
                 <NavLink to="/GameStart" onClick={closeMenu} active={location.pathname === "/GameStart"}>GameStart</NavLink>
-                <NavLink to="/About" onClick={closeMenu} active={location.pathname === "/About"}>About</NavLink>
+                {/* <NavLink to="/About" onClick={closeMenu} active={location.pathname === "/About"}>About</NavLink> */}
                 <NavLink to="/AddQuestion" onClick={closeMenu} active={location.pathname === "/AddQuestion"}>Add Questions</NavLink>
                 <NavLink to="/FetchAllQuestions" onClick={closeMenu} active={location.pathname === "/FetchAllQuestions"}>Show All Questions</NavLink>
                 <NavLink to="/FindSignupData" onClick={closeMenu} active={location.pathname === "/FindSignupData"}>Show All Signup Data</NavLink>
@@ -84,15 +84,16 @@ const NavBar = ({ userRole, setUserRole }) => {
           <div className="lg:hidden mt-2 mr-5 ml-5">
             {userRole === "user" && (
               <>
+                <NavLink to="/UserDashboard" onClick={closeMenu} active={location.pathname === "/UserDashboard"}>UserDashboard</NavLink>
                 <NavLink to="/GameStart" onClick={closeMenu} active={location.pathname === "/GameStart"}>GameStart</NavLink>
-                <NavLink to="/About" onClick={closeMenu} active={location.pathname === "/About"}>About</NavLink>
+                {/* <NavLink to="/About" onClick={closeMenu} active={location.pathname === "/About"}>About</NavLink> */}
               </>
             )}
             {userRole === "admin" && (
               <>
                 <NavLink to="/AdminDashboard" onClick={closeMenu} active={location.pathname === "/AdminDashboard"}>AdminDashboard</NavLink>
                 <NavLink to="/GameStart" onClick={closeMenu} active={location.pathname === "/GameStart"}>GameStart</NavLink>
-                <NavLink to="/About" onClick={closeMenu} active={location.pathname === "/About"}>About</NavLink>
+                {/* <NavLink to="/About" onClick={closeMenu} active={location.pathname === "/About"}>About</NavLink> */}
                 <NavLink to="/AddQuestion" onClick={closeMenu} active={location.pathname === "/AddQuestion"}>Add Questions</NavLink>
                 <NavLink to="/FetchAllQuestions" onClick={closeMenu} active={location.pathname === "/FetchAllQuestions"}>Show All Questions</NavLink>
                 <NavLink to="/FindSignupData" onClick={closeMenu} active={location.pathname === "/FindSignupData"}>Show All Signup Data</NavLink>
@@ -113,7 +114,7 @@ const NavLink = ({ to, onClick, active, children }) => {
     <Link
       to={to}
       onClick={onClick}
-      className={`block py-2 px-2 text-white rounded-md ${active ? "bg-gray-500" : "hover:bg-gray-700"}`}
+      className={`block py-2 px-2 text-white rounded-md ${active ? "bg-green-600" : "hover:bg-gray-700"}`}
     >
       {children}
     </Link>

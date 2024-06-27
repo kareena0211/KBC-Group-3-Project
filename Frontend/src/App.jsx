@@ -58,7 +58,7 @@ function App() {
                 <Route path="/AddQuestion" element={<PrivateRoute element={<AddQuestionForm />} />} />
                 <Route path="/FetchAllQuestions" element={<PrivateRoute element={<FetchAllQuestions />} />} />
                 <Route path="/FindSignupData" element={<PrivateRoute element={<FindSignupData />} />} />
-                <Route path="/About" element={<PrivateRoute element={<About />} />} />
+                {/* <Route path="/About" element={<PrivateRoute element={<About />} />} /> */}
                 <Route path="/AdminDashboard" element={<PrivateRoute element={<AdminDashboard />} />} />
                 {/* <Route path="/" element={<Navigate to="/AdminDashboard" />} /> */}
               </>
