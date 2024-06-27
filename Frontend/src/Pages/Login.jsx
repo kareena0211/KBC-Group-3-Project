@@ -4,7 +4,7 @@ import axios from "axios";
 import { toast, ToastContainer } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 
-const Login = () => {
+const Login = ({ setUserRole }) => {
   const navigate = useNavigate();
   const [formData, setFormData] = useState({
     email: "",
@@ -19,13 +19,14 @@ const Login = () => {
     const token = localStorage.getItem("token");
     if (token) {
       const userData = JSON.parse(localStorage.getItem("userData"));
+      setUserRole(userData.role);
       if (userData.role === "admin") {
         navigate("/AdminDashboard");
       } else {
         navigate("/UserDashboard");
       }
     }
-  }, [navigate]);
+  }, [navigate, setUserRole]);
 
   const validateForm = () => {
     const errors = {};
@@ -60,6 +61,7 @@ const Login = () => {
           const data = response.data;
           localStorage.setItem("token", data.token);
           localStorage.setItem("userData", JSON.stringify(data.user));
+          setUserRole(data.user.role);
 
           if (data.user.role === "admin") {
             navigate("/AdminDashboard");

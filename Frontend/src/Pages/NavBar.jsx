@@ -75,7 +75,7 @@ const NavBar = ({ userRole, setUserRole }) => {
               </>
             )}
             {isDashboardPage && (
-              <button onClick={handleLogout} className="block lg:inline-block lg:mt-0 text-white rounded-full bg-rose-400 p-2 ml-5">Logout</button>
+              <button onClick={handleLogout} className="block lg:inline-block lg:mt-0 text-white rounded-full bg-red-600 p-2 ml-5">Logout</button>
             )}
           </div>
         </div>
@@ -84,7 +84,6 @@ const NavBar = ({ userRole, setUserRole }) => {
           <div className="lg:hidden mt-2 mr-5 ml-5">
             {userRole === "user" && (
               <>
-                <NavLink to="/UserDashboard" onClick={closeMenu} active={location.pathname === "/UserDashboard"}>UserDashboard</NavLink>
                 <NavLink to="/GameStart" onClick={closeMenu} active={location.pathname === "/GameStart"}>GameStart</NavLink>
                 <NavLink to="/About" onClick={closeMenu} active={location.pathname === "/About"}>About</NavLink>
               </>
@@ -100,7 +99,7 @@ const NavBar = ({ userRole, setUserRole }) => {
               </>
             )}
             {isDashboardPage && (
-              <button onClick={handleLogout} className="block lg:inline-block lg:mt-0 text-white rounded-full bg-rose-400 p-2 ml-5">Logout</button>
+              <button onClick={handleLogout} className="block lg:inline-block lg:mt-0 text-white rounded-full bg-red-600 p-2 ml-5">Logout</button>
             )}
           </div>
         )}
